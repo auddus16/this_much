@@ -1,5 +1,6 @@
 package com.project.thismuch.myongyeon;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MyongyeonController {
 	
 	@GetMapping("/test")
-	public String hi() {
+	public ResponseEntity<?> hi() {
 		log.info("test연결 완료");
-		return "hi there~";
+		return ResponseEntity.ok("TEST값");
 	}
 	
 //	@GetMapping("/auth/openbank/callback")
