@@ -1,4 +1,4 @@
-package com.project.thismuch.moreinfo;
+package com.project.thismuch.more_info;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "more_info/")
+@RequestMapping(path = "more_info/")
 class MoreInfoController {
 
 	private final MoreInfoService moreInfoService;
@@ -20,7 +20,7 @@ class MoreInfoController {
 		this.moreInfoService = moreInfoService;
 	}
 
-	@GetMapping
+	@GetMapping(path = "hi/")
 	public List<String> hi() {
 		return this.moreInfoService.getInfoLists();
 	}

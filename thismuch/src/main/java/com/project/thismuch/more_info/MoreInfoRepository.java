@@ -1,4 +1,4 @@
-package com.project.thismuch.moreinfo;
+package com.project.thismuch.more_info;
 
 import org.springframework.stereotype.Repository;
 
