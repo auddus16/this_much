@@ -12,11 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/my")
-public class MyongyeonController {
+class MyongyeonController {
 	
 	@GetMapping("/test")
 	public String hi() {
-		log.info("test연결 완료");
+		log.info("Hello world");
 		return "hi there~";
 	}
 	
