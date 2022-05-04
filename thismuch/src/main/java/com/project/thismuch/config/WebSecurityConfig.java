@@ -50,8 +50,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+<<<<<<< HEAD
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/mw/**", "/user/login", "/api/member").permitAll()
+=======
+		http.csrf().disable().authorizeRequests().antMatchers("/mw/**", "/my/**", "/api/member").permitAll()
+>>>>>>> 72b5c9df0a046d092498b90b5704c23ec6abe2d0
 				.antMatchers("/swagger-resources/**", "/", "/8f1cc972-1521-46e5-8453-ff9edc5b33d2").permitAll() // swagger
 				.antMatchers("/more_info/**").permitAll()
 				.anyRequest().authenticated().and()
