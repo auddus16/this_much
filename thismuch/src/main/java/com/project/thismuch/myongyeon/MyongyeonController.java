@@ -16,15 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 class MyongyeonController {
 	
 	@GetMapping("/test")
-<<<<<<< HEAD
-	public String hi() {
-		log.info("Hello world");
-		return "hi there~";
-=======
 	public ResponseEntity<?> hi() {
 		log.info("test연결 완료");
 		return ResponseEntity.ok("TEST값");
->>>>>>> 72b5c9df0a046d092498b90b5704c23ec6abe2d0
 	}
 	
 //	@GetMapping("/auth/openbank/callback")
