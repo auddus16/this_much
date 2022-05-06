@@ -31,11 +31,10 @@ public class OAuthService {
         this.oauthRepository.save(user);
     }
 
-    public Map<String, String> saveCodeInfo(String code, String scope, String client_info, String state) {
+    public Map<String, String> saveCodeInfo(String code, String scope, String state) {
         Map<String, String> map = new HashMap<>();
         map.put("code",         code);
         map.put("scope",        scope);
-        map.put("client_info",   client_info);
         map.put("state",        state);
 
         return map;

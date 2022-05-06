@@ -26,15 +26,14 @@ public class OAuthController {
 
     @GetMapping(path = "/register")
     public ResponseEntity<Map<String, String>> register(
-            @RequestParam String code, @RequestParam String scope,
-            @RequestParam String client_info, @RequestParam String state
+            @RequestParam String code, @RequestParam String scope, @RequestParam String state
     ) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
-                body(this.oauthService.saveCodeInfo(code, scope, client_info, state));
+                body(this.oauthService.saveCodeInfo(code, scope, state));
     }
 
     @GetMapping(path = "/grant")
-    public RedirectView exRedirect4() {
+    public RedirectView grant() {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(this.oauthService.getGrantUrl());
         return redirectView;

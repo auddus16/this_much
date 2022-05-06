@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
 
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userNo;                    // pk
     private String id;
     private String name;
