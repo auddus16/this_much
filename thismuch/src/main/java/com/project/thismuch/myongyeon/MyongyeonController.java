@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/my")
-public class MyongyeonController {
+class MyongyeonController {
 	
 	@Autowired
 	private final RestTemplateService templateService;

@@ -1,20 +1,13 @@
 package com.project.thismuch.config;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /* .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint) :
 
@@ -57,8 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
 		http.csrf().disable().authorizeRequests().antMatchers("/mw/**", "/my/**", "/api/member").permitAll()
 				.antMatchers("/swagger-resources/**", "/", "/8f1cc972-1521-46e5-8453-ff9edc5b33d2").permitAll() // swagger
+				.antMatchers("/api/moreInfo/**", "/api/oauth/**").permitAll()
 				.anyRequest().authenticated().and()
 				.csrf().disable()
 				.formLogin();
