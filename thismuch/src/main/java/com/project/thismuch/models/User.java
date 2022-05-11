@@ -36,18 +36,18 @@ public class User {
     private LocalDate registDate;
     @Column(name = "code", nullable = false)
     private String code;
-    @Column(name = "register_token", nullable = false)
+    @Column(name = "register_token", nullable = false, length=1000)
     private String registerToken;
-    @Column(name = "access_token", nullable = false)
+    @Column(name = "access_token", nullable = false, length=1000)
     private String accessToken;
-    @Column(name = "refresh_token", nullable = false)
+    @Column(name = "refresh_token", nullable = false, length=1000)
     private String refreshToken;
     @Column(name = "expiration", nullable = false)
     private Integer expiration;             // 만료 기간 (초)
     @Column(name = "user_serial_number", nullable = false)
-    private Integer userSerialNumber;       // 사용자 일련 번호
+    private String userSerialNumber;       // 사용자 일련 번호
 
-    public User(String id, String name, String passwd, String telNum, LocalDate registDate, String code, String regiterToken, String accessToken, String refreshToken, Integer expiration, Integer userSerialNumber) {
+    public User(String id, String name, String passwd, String telNum, LocalDate registDate, String code, String regiterToken, String accessToken, String refreshToken, Integer expiration, String userSerialNumber) {
         this.id = id;
         this.name = name;
         this.passwd = passwd;
