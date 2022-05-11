@@ -6,12 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Table(name = "account")
+@Entity(name = "Account")
 @Slf4j
 @Getter
 @Setter
@@ -20,16 +18,23 @@ import javax.persistence.Id;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "account_no")
     private Integer accountNo;      // pk
-    private Integer userNo;         // fk
+    @ManyToOne
+    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
+    private User userNo;         // fk
+    @Column(name = "bank_name")
     private String bankName;        // 은행이름
+    @Column(name = "account_number")
     private String accountNumber;   // 계좌번호
+    @Column(name = "account_name")
     private String accountName;     // 계좌별칭
+    @Column(name = "bank_code_std")
     private String bankCodeStd;     // 은행고유번호(국민:004)
+    @Column(name = "fintech_use_num")
     private Integer fintechUseNum;  // 핀테크이용번호
 
-    public Account(Integer userNo, String bankName, String accountNumber, String accountName, String bankCodeStd, Integer fintechUseNum) {
-        this.userNo = userNo;
+    public Account(String bankName, String accountNumber, String accountName, String bankCodeStd, Integer fintechUseNum) {
         this.bankName = bankName;
         this.accountNumber = accountNumber;
         this.accountName = accountName;
