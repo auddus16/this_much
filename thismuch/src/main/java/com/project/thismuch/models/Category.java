@@ -6,12 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Table
+@Entity(name = "Category")
 @Slf4j
 @Getter
 @Setter
@@ -21,7 +19,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer categoryNo;     // pk
-    private Integer userNo;         // fk
+    @ManyToOne
+    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
+    private User userNo;         // fk
     private String categoryName;    // 카테고리 이름
     private Integer upperBound;     // 상한가
 }
