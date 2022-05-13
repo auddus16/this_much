@@ -1,6 +1,6 @@
 package com.project.thismuch.oauth;
 
-import com.project.thismuch.models.User;
+import com.project.thismuch.data.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class OAuthService {
         this.oauthRepository = oauthRepository;
     }
 
-    public void registerUser(User user) {
+    public void registerUser(UserEntity user) {
         this.oauthRepository.save(user);
     }
 

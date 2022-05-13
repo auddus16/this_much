@@ -1,12 +1,11 @@
 package com.project.thismuch.moreInfo;
 
-import com.project.thismuch.models.User;
+import com.project.thismuch.data.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.Optional;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @RestController
@@ -21,17 +20,19 @@ class MoreInfoController {
 	}
 
 	@GetMapping(path = "/basicInfo")
-	public Optional<User> getBasicInfo() {
-		return this.moreInfoService.getBasicInfo();
-	}
+	public UserDTO getBasicInfo(HttpSession session) {
+		Long user_no = (Long) session.getAttribute("user_no");
 
-	@GetMapping(path = "/authSecure")
-	public Optional<User> getAuthInfo() {
-		return this.moreInfoService.getBasicInfo();
+		log.info(String.valueOf(user_no));
+
+		return this.moreInfoService.getBasicInfo(user_no);
 	}
 
 	@PostMapping(path = "/register")
-	public void registerNewUser(@RequestBody User user) {
-		this.moreInfoService.registerNewUser(user);
+	public void registerNewUser(@RequestBody UserDTO user, HttpSession session) {
+		Long user_no = this.moreInfoService.registerNewUser(user);
+
+		log.info(String.valueOf(user_no));
+		session.setAttribute("user_no", user_no);
 	}
 }
