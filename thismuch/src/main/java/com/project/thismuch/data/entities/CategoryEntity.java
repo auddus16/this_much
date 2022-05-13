@@ -1,9 +1,7 @@
-package com.project.thismuch.models;
+package com.project.thismuch.data.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.project.thismuch.data.dto.CategoryDTO;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -15,15 +13,25 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
+@Builder
+public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer categoryNo;     // pk
     @ManyToOne
     @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
-    private User userNo;         // fk
+    private UserEntity userNo;         // fk
     @Column(name = "category_name")
     private String categoryName;    // 카테고리 이름
     @Column(name = "upper_bound")
     private Integer upperBound;     // 상한가
+
+    public CategoryDTO toDTO() {
+        return CategoryDTO.builder()
+                .categoryNo(categoryNo)
+                .userNo(userNo)
+                .categoryName(categoryName)
+                .upperBound(upperBound)
+                .build();
+    }
 }

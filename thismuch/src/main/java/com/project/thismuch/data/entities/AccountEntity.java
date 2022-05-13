@@ -1,9 +1,6 @@
-package com.project.thismuch.models;
+package com.project.thismuch.data.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -15,14 +12,15 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account {
+@Builder
+public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "account_no")
     private Integer accountNo;      // pk
     @ManyToOne
-    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
-    private User userNo;         // fk
+    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no"))
+    private UserEntity userNo;         // fk
     @Column(name = "bank_name")
     private String bankName;        // 은행이름
     @Column(name = "account_number")
@@ -34,7 +32,7 @@ public class Account {
     @Column(name = "fintech_use_num")
     private Integer fintechUseNum;  // 핀테크이용번호
 
-    public Account(String bankName, String accountNumber, String accountName, String bankCodeStd, Integer fintechUseNum) {
+    public AccountEntity(String bankName, String accountNumber, String accountName, String bankCodeStd, Integer fintechUseNum) {
         this.bankName = bankName;
         this.accountNumber = accountNumber;
         this.accountName = accountName;

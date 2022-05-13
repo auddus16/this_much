@@ -1,9 +1,7 @@
-package com.project.thismuch.models;
+package com.project.thismuch.data.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.project.thismuch.data.dto.UserDTO;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -18,11 +16,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Builder
+public class UserEntity {
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "user_sequence")
-    private Integer userNo; // pk
+    private Long userNo; // pk
 
     @Column(name = "id", unique = true, nullable = false)
     private String id;
@@ -47,17 +46,19 @@ public class User {
     @Column(name = "user_serial_number", nullable = false)
     private Integer userSerialNumber;       // 사용자 일련 번호
 
-    public User(String id, String name, String passwd, String telNum, LocalDate registDate, String code, String regiterToken, String accessToken, String refreshToken, Integer expiration, Integer userSerialNumber) {
-        this.id = id;
-        this.name = name;
-        this.passwd = passwd;
-        this.telNum = telNum;
-        this.registDate = registDate;
-        this.code = code;
-        this.registerToken = regiterToken;
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-        this.expiration = expiration;
-        this.userSerialNumber = userSerialNumber;
+    public UserDTO toDTO() {
+        return UserDTO.builder()
+                .id(id)
+                .name(name)
+                .passwd(passwd)
+                .telNum(telNum)
+                .registDate(LocalDate.now())
+                .code(code)
+                .registerToken(registerToken)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .expiration(expiration)
+                .userSerialNumber(userSerialNumber)
+                .build();
     }
 }
