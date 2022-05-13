@@ -22,6 +22,8 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
     private User userNo;         // fk
+    @Column(name = "category_name")
     private String categoryName;    // 카테고리 이름
+    @Column(name = "upper_bound")
     private Integer upperBound;     // 상한가
 }

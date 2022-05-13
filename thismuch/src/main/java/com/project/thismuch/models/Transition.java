@@ -40,9 +40,14 @@ public class Transition {
     @ManyToOne
     @JoinColumn(name = "category_no", foreignKey = @ForeignKey(name = "category_no"))
     private Category categoryNo;
+
+    @Column(name = "cost")
     private Integer cost;
+    @Column(name = "income_outcome")
     private InOutCome incomeOutcome;
+    @Column(name = "content")
     private String content;
+    @Column(name = "tran_time")
     private LocalDate tranTime;
 
     public Transition(Integer cost, InOutCome incomeOutcome, String content, LocalDate tranTime) {
