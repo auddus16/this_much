@@ -10,9 +10,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
-@EnableJpaRepositories(basePackages ={"com.project.thismuch.myongyeon.*"})
-@EntityScan(basePackages ={"com.project.thismuch.models.*"})
-@ComponentScan(basePackages= {"com.project.thismuch.moreInfo.*"})
 public class ThismuchApplication {
 
 	public static void main(String[] args) {
