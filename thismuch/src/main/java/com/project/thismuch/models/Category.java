@@ -1,6 +1,5 @@
-package com.project.thismuch.data.entities;
+package com.project.thismuch.models;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -10,12 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.project.thismuch.data.dto.CategoryDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,27 +21,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class CategoryEntity {
-    @Id
+@RequiredArgsConstructor
+public class Category {
+    
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Integer categoryNo;     // pk
+    
     @ManyToOne
     @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
-    private UserEntity userNo;         // fk
-    @Column(name = "category_name")
+    @JsonIgnore
+    private User user;         // fk
+    
     private String categoryName;    // 카테고리 이름
-    @Column(name = "upper_bound")
+    
     private Integer upperBound;     // 상한가
-
-    public CategoryDTO toDTO() {
-        return CategoryDTO.builder()
-                .categoryNo(categoryNo)
-                .userNo(userNo)
-                .categoryName(categoryName)
-                .upperBound(upperBound)
-                .build();
-    }
 }

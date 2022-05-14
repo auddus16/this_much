@@ -32,7 +32,7 @@ public class AccountEntity {
     @Column(name = "bank_code_std")
     private String bankCodeStd;     // 은행고유번호(국민:004)
     @Column(name = "fintech_use_num")
-    private Integer fintechUseNum;  // 핀테크이용번호
+    private String fintechUseNum;  // 핀테크이용번호
 
     public AccountDTO toDTO() {
         return AccountDTO.builder()
