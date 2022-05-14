@@ -1,5 +1,7 @@
 package com.project.thismuch.data.entities;
 
+import com.project.thismuch.data.dto.AccountDTO;
+import com.project.thismuch.data.dto.CategoryDTO;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,11 +34,15 @@ public class AccountEntity {
     @Column(name = "fintech_use_num")
     private Integer fintechUseNum;  // 핀테크이용번호
 
-    public AccountEntity(String bankName, String accountNumber, String accountName, String bankCodeStd, Integer fintechUseNum) {
-        this.bankName = bankName;
-        this.accountNumber = accountNumber;
-        this.accountName = accountName;
-        this.bankCodeStd = bankCodeStd;
-        this.fintechUseNum = fintechUseNum;
+    public AccountDTO toDTO() {
+        return AccountDTO.builder()
+                .accountNo(accountNo)
+                .userNo(userNo)
+                .bankName(bankName)
+                .accountNumber(accountNumber)
+                .accountName(accountName)
+                .bankCodeStd(bankCodeStd)
+                .fintechUseNum(fintechUseNum)
+                .build();
     }
 }
