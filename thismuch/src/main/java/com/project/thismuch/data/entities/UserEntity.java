@@ -1,6 +1,12 @@
-package com.project.thismuch.models;
+package com.project.thismuch.data.entities;
 
+<<<<<<< HEAD:thismuch/src/main/java/com/project/thismuch/models/User.java
 import static javax.persistence.GenerationType.SEQUENCE;
+=======
+import com.project.thismuch.data.dto.UserDTO;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+>>>>>>> origin/develop:thismuch/src/main/java/com/project/thismuch/data/entities/UserEntity.java
 
 import java.time.LocalDate;
 
@@ -23,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @Setter
+<<<<<<< HEAD:thismuch/src/main/java/com/project/thismuch/models/User.java
 @RequiredArgsConstructor
 public class User {
     
@@ -31,6 +38,16 @@ public class User {
     @GeneratedValue(strategy = SEQUENCE, generator = "user_sequence")
 	@JsonIgnore
     private Integer userNo; // pk
+=======
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class UserEntity {
+    @Id
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "user_sequence")
+    private Long userNo; // pk
+>>>>>>> origin/develop:thismuch/src/main/java/com/project/thismuch/data/entities/UserEntity.java
 
     @Column(name = "id", unique = true, nullable = false)
     private String id;
@@ -63,6 +80,26 @@ public class User {
     private Integer expiration;             // 만료 기간 (초)
     
     @Column(name = "user_serial_number", nullable = false)
+<<<<<<< HEAD:thismuch/src/main/java/com/project/thismuch/models/User.java
     private String userSerialNumber;       // 사용자 일련 번호
     
+=======
+    private Integer userSerialNumber;       // 사용자 일련 번호
+
+    public UserDTO toDTO() {
+        return UserDTO.builder()
+                .id(id)
+                .name(name)
+                .passwd(passwd)
+                .telNum(telNum)
+                .registDate(LocalDate.now())
+                .code(code)
+                .registerToken(registerToken)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .expiration(expiration)
+                .userSerialNumber(userSerialNumber)
+                .build();
+    }
+>>>>>>> origin/develop:thismuch/src/main/java/com/project/thismuch/data/entities/UserEntity.java
 }

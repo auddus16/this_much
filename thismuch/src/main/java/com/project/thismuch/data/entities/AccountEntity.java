@@ -1,5 +1,6 @@
-package com.project.thismuch.models;
+package com.project.thismuch.data.entities;
 
+<<<<<<< HEAD:thismuch/src/main/java/com/project/thismuch/models/Account.java
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -15,6 +16,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+=======
+import lombok.*;
+>>>>>>> origin/develop:thismuch/src/main/java/com/project/thismuch/data/entities/AccountEntity.java
 import lombok.extern.slf4j.Slf4j;
 
 @Table(name = "account")
@@ -22,20 +26,33 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @Setter
+<<<<<<< HEAD:thismuch/src/main/java/com/project/thismuch/models/Account.java
 @RequiredArgsConstructor
 public class Account {
     
 	@Id
+=======
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class AccountEntity {
+    @Id
+>>>>>>> origin/develop:thismuch/src/main/java/com/project/thismuch/data/entities/AccountEntity.java
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "account_no")
     @JsonIgnore
     private Integer accountNo;      // pk
     
     @ManyToOne
+<<<<<<< HEAD:thismuch/src/main/java/com/project/thismuch/models/Account.java
     @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
     @JsonIgnore
     private User user;         // fk
     
+=======
+    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no"))
+    private UserEntity userNo;         // fk
+>>>>>>> origin/develop:thismuch/src/main/java/com/project/thismuch/data/entities/AccountEntity.java
     @Column(name = "bank_name")
     private String bankName;        // 은행이름
     
@@ -51,4 +68,14 @@ public class Account {
     @Column(name = "fintech_use_num")
     private String fintechUseNum;  // 핀테크이용번호
 
+<<<<<<< HEAD:thismuch/src/main/java/com/project/thismuch/models/Account.java
+=======
+    public AccountEntity(String bankName, String accountNumber, String accountName, String bankCodeStd, Integer fintechUseNum) {
+        this.bankName = bankName;
+        this.accountNumber = accountNumber;
+        this.accountName = accountName;
+        this.bankCodeStd = bankCodeStd;
+        this.fintechUseNum = fintechUseNum;
+    }
+>>>>>>> origin/develop:thismuch/src/main/java/com/project/thismuch/data/entities/AccountEntity.java
 }
