@@ -1,4 +1,4 @@
-package com.project.thismuch.service;
+package com.project.thismuch.myongyeon;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,8 +29,6 @@ public class RestTemplateService {
     	
     	HttpHeaders httpHeaders = new HttpHeaders();
     	
-//    	httpHeaders.set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk0Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NTk0NDI2NTYsImp0aSI6ImEyYzllNGRhLWRkNjgtNDBlNy1hYTU0LTMzZjQ5NTFlNjNjNSJ9.E3Wi3fMDJNU3ZNiX6PzDNO51mGD1RdqaSPhec7qEgcY");
-//    	httpHeaders.set("Scope", "inquiry login transfer");
     	httpHeaders.set("accept", "application/json");
     	httpHeaders.set("Content-Type", "application/json");
     	
@@ -95,7 +93,7 @@ public class RestTemplateService {
     	HttpHeaders headers = new HttpHeaders(); 
     	
     	headers.set("accept", "application/json"); 
-    	headers.set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk0Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NTk0NDI2NTYsImp0aSI6ImEyYzllNGRhLWRkNjgtNDBlNy1hYTU0LTMzZjQ5NTFlNjNjNSJ9.E3Wi3fMDJNU3ZNiX6PzDNO51mGD1RdqaSPhec7qEgcY"); 
+    	headers.set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk0Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NTk1MjYzOTIsImp0aSI6IjQ0MTU5ZjhjLWM3MTctNDllNi04MmI3LTZjZTE4NTQxMWI4YSJ9.wJ15ZF9iLt0ovUPa6zj7yAZXTvhAF_FxFrsnpwTvEtM"); 
     	
     	HttpEntity<?> request = new HttpEntity<Object>(headers);
     	
