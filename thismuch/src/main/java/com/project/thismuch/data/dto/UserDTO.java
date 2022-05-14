@@ -1,11 +1,15 @@
 package com.project.thismuch.data.dto;
 
-import com.project.thismuch.data.entities.UserEntity;
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.persistence.Column;
 import java.time.LocalDate;
+
+import com.project.thismuch.data.entities.UserEntity;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Data
@@ -25,7 +29,7 @@ public class UserDTO {
     private String accessToken;
     private String refreshToken;
     private Integer expiration;             // 만료 기간 (초)
-    private Integer userSerialNumber;       // 사용자 일련 번호
+    private String userSerialNumber;       // 사용자 일련 번호
 
     public UserEntity toEntity() {
         return UserEntity.builder()

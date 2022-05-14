@@ -1,4 +1,4 @@
-package com.project.thismuch.data.entities;
+package com.project.thismuch.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -25,9 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
-@Builder
-public class AccountEntity {
+public class Account {
     
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,8 +32,9 @@ public class AccountEntity {
     private Integer accountNo;      // pk
     
     @ManyToOne
-    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no"))
-    private UserEntity userNo;         // fk
+    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
+    @JsonIgnore
+    private User user;         // fk
     
     @Column(name = "bank_name")
     private String bankName;        // 은행이름

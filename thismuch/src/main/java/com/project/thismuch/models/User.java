@@ -1,4 +1,4 @@
-package com.project.thismuch.data.entities;
+package com.project.thismuch.models;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -11,12 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.project.thismuch.data.dto.UserDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,15 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class UserEntity {
+@RequiredArgsConstructor
+public class User {
     
 	@Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "user_sequence")
-    private Long userNo; // pk
+	@JsonIgnore
+    private Integer userNo; // pk
 
     @Column(name = "id", unique = true, nullable = false)
     private String id;
@@ -68,19 +65,4 @@ public class UserEntity {
     @Column(name = "user_serial_number", nullable = false)
     private String userSerialNumber;       // 사용자 일련 번호
     
-    public UserDTO toDTO() {
-        return UserDTO.builder()
-                .id(id)
-                .name(name)
-                .passwd(passwd)
-                .telNum(telNum)
-                .registDate(LocalDate.now())
-                .code(code)
-                .registerToken(registerToken)
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .expiration(expiration)
-                .userSerialNumber(userSerialNumber)
-                .build();
-    }
 }

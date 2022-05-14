@@ -1,10 +1,23 @@
 package com.project.thismuch.data.entities;
 
-import com.project.thismuch.data.dto.CategoryDTO;
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import com.project.thismuch.data.dto.CategoryDTO;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Table
 @Entity(name = "Category")

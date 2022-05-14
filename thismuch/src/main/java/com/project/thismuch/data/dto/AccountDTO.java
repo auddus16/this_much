@@ -23,7 +23,7 @@ public class AccountDTO {
     private String accountNumber;   // 계좌번호
     private String accountName;     // 계좌별칭
     private String bankCodeStd;     // 은행고유번호(국민:004)
-    private Integer fintechUseNum;  // 핀테크이용번호
+    private String fintechUseNum;  // 핀테크이용번호
 
     public AccountEntity toEntity() {
         return AccountEntity.builder()
