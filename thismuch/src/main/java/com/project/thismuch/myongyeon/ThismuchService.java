@@ -2,7 +2,6 @@ package com.project.thismuch.myongyeon;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,21 +43,11 @@ public class ThismuchService{
 		return thismuchRepository.findIncomeByUserNo(user, from, to);
 	}
 	
-//	public Optional<Transition> test(User user, String fromDate, String toDate) throws ParseException{
-//		Date from = formatter.parse(fromDate);
-//		Date to = formatter.parse(toDate);
-//		
-//		Category category = new Category();
-//		category.setCategoryNo(1);
-//		
-//		return thismuchRepository.findTotalCostByCategory(user, category, from, to);
-//	}
-	
-	public List<Map<String, Optional<String>>>getTotalCostByCategory(User user, String fromDate, String toDate) throws ParseException {
+	public Map<String, Optional<String>>getTotalCostByCategory(User user, String fromDate, String toDate) throws ParseException {
 		
 		List<Optional<Category>> cateList = thismuchRepository.findCategoryAll(user);
 		
-		List<Map<String, Optional<String>>> resultList = new ArrayList<Map<String, Optional<String>>>();
+		Map<String, Optional<String>> resultList = new HashMap<String, Optional<String>>();
 		
 		Date from = formatter.parse(fromDate);
 		Date to = formatter.parse(toDate);
@@ -68,10 +57,9 @@ public class ThismuchService{
 			
 			Optional<String> cate = thismuchRepository.findTotalCostByCategory(user, cateList.get(i).get(), from, to);
 			
-			Map<String, Optional<String>> map = new HashMap<String, Optional<String>>();
-			map.put(cateList.get(i).get().getCategoryName(), cate);
+//			Map<String, Optional<String>> resultList = new HashMap<String, Optional<String>>();
+			resultList.put(cateList.get(i).get().getCategoryName(), cate);
 			
-			resultList.add(map);
 		}
 		
 		return resultList;
