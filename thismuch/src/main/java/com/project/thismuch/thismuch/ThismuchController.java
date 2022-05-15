@@ -1,4 +1,4 @@
-package com.project.thismuch.myongyeon;
+package com.project.thismuch.thismuch;
 
 import java.text.ParseException;
 import java.util.HashMap;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.thismuch.models.Transition;
-import com.project.thismuch.models.User;
+import com.project.thismuch.data.entities.TransitionEntity;
+import com.project.thismuch.data.entities.UserEntity;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -38,11 +38,11 @@ class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
 		
 		log.info("[/spending] 기간 총 지출 내역 조회");
 		
-		int userNo = 1; //session 값 받아오는 부분 수정해야함.
-		User user1=new User();
-		user1.setUserNo(userNo);
+		long userNo = 1; //session 값 받아오는 부분 수정해야함.
+		UserEntity user=new UserEntity();
+		user.setUserNo(userNo);
 		
-		List<Optional<Transition>> tranList= thismuchService.selectSpendingByPeriod(user1, fromDate, toDate);
+		List<Optional<TransitionEntity>> tranList= thismuchService.selectSpendingByPeriod(user, fromDate, toDate);
 		
 		return ResponseEntity.ok(tranList);
 	}
@@ -54,11 +54,11 @@ class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
 		
 		log.info("[/income] 기간 총 수입 내역 조회");
 		
-		int userNo = 1; //session 값 받아오는 부분 수정해야함.
-		User user=new User();
+		long userNo = 1; //session 값 받아오는 부분 수정해야함.
+		UserEntity user=new UserEntity();
 		user.setUserNo(userNo);
 		
-		List<Optional<Transition>> tranList= thismuchService.selectIncomeByPeriod(user, fromDate, toDate);
+		List<Optional<TransitionEntity>> tranList= thismuchService.selectIncomeByPeriod(user, fromDate, toDate);
 		
 		return ResponseEntity.ok(tranList);
 	}
@@ -69,8 +69,8 @@ class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
 			@Parameter(name="to_date", description="조회종료일자", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String toDate) throws ParseException{
 		log.info("[/stats] 이만큼 정보 조회");
 
-		int userNo = 1; //session 값 받아오는 부분 수정해야함.
-		User user=new User();
+		long userNo = 1; //session 값 받아오는 부분 수정해야함.
+		UserEntity user=new UserEntity();
 		user.setUserNo(userNo);
 		
 		Map<String, Map<String, Optional<String>>> result = new HashMap<String, Map<String, Optional<String>>>();
@@ -90,8 +90,8 @@ class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
 	public ResponseEntity<?> test() throws ParseException{
 		log.info("[/test]");
 		
-		int userNo = 1; //session 값 받아오는 부분 수정해야함.
-		User user=new User();
+		long userNo = 1; //session 값 받아오는 부분 수정해야함.
+		UserEntity user=new UserEntity();
 		user.setUserNo(userNo);
 //		Object obj = thismuchService.test(user, "20220512", "20220513");
 //		
