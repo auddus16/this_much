@@ -63,10 +63,9 @@ class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
 		return ResponseEntity.ok(tranList);
 	}
 	
-	@Operation(summary = "이만큼 정보 조회", description = "원하는 기간의 이만큼 정보를 조회한다.")
-	@RequestMapping(value="/stats/{fromDate}/{toDate}", method=RequestMethod.GET)
-	public ResponseEntity<?> searchTranFinNum(@Parameter(name="from_date", description="조회시작일자", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String fromDate, 
-			@Parameter(name="to_date", description="조회종료일자", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String toDate) throws ParseException{
+	@Operation(summary = "이만큼 정보 조회", description = "조회날짜를 기준으로 이번 달의 이만큼 정보를 조회한다.")
+	@RequestMapping(value="/stats/{today}", method=RequestMethod.GET)
+	public ResponseEntity<?> searchTranFinNum(@Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException{
 		log.info("[/stats] 이만큼 정보 조회");
 
 		long userNo = 1; //session 값 받아오는 부분 수정해야함.
@@ -76,29 +75,29 @@ class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
 		Map<String, Map<String, Optional<String>>> result = new HashMap<String, Map<String, Optional<String>>>();
 		
 		//카테고리별 총 지출 리스트
-		result.put("category_list", thismuchService.getTotalCostByCategory(user, fromDate, toDate));
+		result.put("category_list", thismuchService.getTotalCostByCategory(user, today));
 		
 		//고정 지출 리스트
-		
+		result.put("fixed_spending_list", thismuchService.getFixedCostList(user, today));
 		//월 지출 리스트
 		
 		return ResponseEntity.ok(result);
 	}
 	
-	@Operation(summary = "이만큼 정보 조회", description = "원하는 기간의 이만큼 정보를 조회한다.")
-	@RequestMapping(value="/test", method=RequestMethod.GET)
-	public ResponseEntity<?> test() throws ParseException{
-		log.info("[/test]");
-		
-		long userNo = 1; //session 값 받아오는 부분 수정해야함.
-		UserEntity user=new UserEntity();
-		user.setUserNo(userNo);
-//		Object obj = thismuchService.test(user, "20220512", "20220513");
+//	@Operation(summary = "이만큼 정보 조회", description = "원하는 기간의 이만큼 정보를 조회한다.")
+//	@RequestMapping(value="/test", method=RequestMethod.GET)
+//	public ResponseEntity<?> test() throws ParseException{
+//		log.info("[/test]");
 //		
-//		System.out.println(obj.getClass().getName().getClass());
-		Map<String, Optional<String>> result = thismuchService.getTotalCostByCategory(user, "20220512", "20220513");
-		
-		return ResponseEntity.ok(result);
-	}
+//		long userNo = 1; //session 값 받아오는 부분 수정해야함.
+//		UserEntity user=new UserEntity();
+//		user.setUserNo(userNo);
+////		Object obj = thismuchService.test(user, "20220512", "20220513");
+////		
+////		System.out.println(obj.getClass().getName().getClass());
+//		Map<String, Optional<String>> result = thismuchService.getTotalCostByCategory(user, "20220512", "20220513");
+//		
+//		return ResponseEntity.ok(result);
+//	}
 	
 }
