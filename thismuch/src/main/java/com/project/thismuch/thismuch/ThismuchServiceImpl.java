@@ -54,17 +54,9 @@ public class ThismuchServiceImpl implements ThismuchService{
 	public LocalDate[] createDate(String today, int months) {//months는 몇 개월로 생성할 지(1->1개월)
 		
 		LocalDate toDate = stringToLocalDate2(today);
-		int year = toDate.getYear();
-		int month = toDate.getMonthValue();
-		month -= months-1;//몇 개월로 만들지
+		LocalDate fromDate = toDate.minusMonths(months);
 		
-		String str = Integer.toString(year);
-		if(month < 10) { //1~9일 경우 앞에 0 붙여줌.
-			str += "0";
-		}
-		str += Integer.toString(month)+"01";
-		log.info(str);
-		LocalDate fromDate = stringToLocalDate2(str);
+		fromDate = fromDate.minusDays(fromDate.getDayOfMonth()-1);
 		
 		log.info(fromDate+"~"+toDate);
 		
@@ -96,7 +88,8 @@ public class ThismuchServiceImpl implements ThismuchService{
 		List<Optional<CategoryEntity>> cateList = thismuchRepository.findCategoryAll(user); //category List
 		
 		//조회날짜로 기간 구하기(20220512 -> 20220501)
-		LocalDate[] date = createDate(today, 1);
+		LocalDate[] date = createDate(today, 0);
+		log.info("카테고리 총 지출 조회기간: "+date[0]+"~"+date[1]);
 		
 		//비용 계산
 		Map<String, Optional<String>> resultList = new HashMap<String, Optional<String>>();		
@@ -115,8 +108,9 @@ public class ThismuchServiceImpl implements ThismuchService{
 	@Override
 	public Map<String, Optional<String>> getFixedCostList(UserEntity user, String today)throws ParseException {
 		
-		//조회날짜로 기간 구하기(20220512 -> 20220401)
-		LocalDate[] date = createDate(today, 2);
+		//조회날짜로 기간 구하기(20220512 -> 20220401~20220512)
+		LocalDate[] date = createDate(today, 1);
+		log.info("고정지출 조회기간: "+date[0]+"~"+date[1]);
 		
 		List<Optional<TransitionEntity>> tranList = thismuchRepository.findSpendingByUserNo(user, date[0], date[1]);
 		
