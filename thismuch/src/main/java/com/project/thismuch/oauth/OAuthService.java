@@ -1,6 +1,7 @@
 package com.project.thismuch.oauth;
 
 import com.project.thismuch.data.entities.UserEntity;
+import com.project.thismuch.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +21,15 @@ public class OAuthService {
     private final String state = "b80BLsfigm9OokPTjy03elbJqRHOfGSY";
     private final String auth_type = "0";
 
-    private OAuthRepository oauthRepository = null;
+    private UserRepository userRepository = null;
 
     @Autowired
-    public OAuthService(OAuthRepository oAuthRepository) {
-        this.oauthRepository = oauthRepository;
+    public OAuthService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public void registerUser(UserEntity user) {
-        this.oauthRepository.save(user);
+        this.userRepository.save(user);
     }
 
     public Map<String, String> saveCodeInfo(String code, String scope, String state) {
