@@ -1,6 +1,7 @@
 package com.project.thismuch.moreInfo;
 
 import com.project.thismuch.data.dto.UserDTO;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ class MoreInfoController {
 	}
 
 	// http://localhost:8080/api/moreInfo/basicInfo
+	@Operation(summary = "현재 접속 중인 user의 정보를 조회", description = "user의 정보 조회")
 	@GetMapping(path = "/basicInfo")
 	public UserDTO getBasicInfo(HttpSession session) {
 		Long user_no = (Long) session.getAttribute("user_no");
