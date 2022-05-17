@@ -19,7 +19,7 @@ class MoreInfoController {
 		this.moreInfoService = moreInfoService;
 	}
 
-	// https://localhost:8080/api/moreInfo/basicInfo
+	// http://localhost:8080/api/moreInfo/basicInfo
 	@GetMapping(path = "/basicInfo")
 	public UserDTO getBasicInfo(HttpSession session) {
 		Long user_no = (Long) session.getAttribute("user_no");
@@ -29,6 +29,7 @@ class MoreInfoController {
 		return this.moreInfoService.getBasicInfo(user_no);
 	}
 
+	// http://localhost:8080/api/moreInfo/register
 	@PostMapping(path = "/register")
 	public void registerNewUser(@RequestBody UserDTO user, HttpSession session) {
 		Long user_no = this.moreInfoService.registerNewUser(user);
