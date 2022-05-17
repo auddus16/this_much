@@ -19,6 +19,7 @@ class MoreInfoController {
 		this.moreInfoService = moreInfoService;
 	}
 
+	// https://localhost:8080/api/moreInfo/basicInfo
 	@GetMapping(path = "/basicInfo")
 	public UserDTO getBasicInfo(HttpSession session) {
 		Long user_no = (Long) session.getAttribute("user_no");
