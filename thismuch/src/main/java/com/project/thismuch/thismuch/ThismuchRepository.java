@@ -29,7 +29,7 @@ public interface ThismuchRepository extends CrudRepository<TransitionEntity, Lon
 	Optional<String> findTotalCostByCategory(@Param("user")UserEntity user, @Param("category")CategoryEntity category, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
 	
 	//카테고리 리스트 전체 조회
-	@Query("SELECT cate FROM Category cate where cate.userNo = :user")
+	@Query("SELECT cate FROM Category cate where cate.user.userNo = :user")
 	List<Optional<CategoryEntity>> findCategoryAll(@Param("user")UserEntity user);
 	
 	
