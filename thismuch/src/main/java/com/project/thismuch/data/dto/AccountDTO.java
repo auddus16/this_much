@@ -5,11 +5,6 @@ import com.project.thismuch.data.entities.UserEntity;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Column;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 @Slf4j
 @Data
 @NoArgsConstructor

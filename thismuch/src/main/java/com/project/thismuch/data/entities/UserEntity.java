@@ -70,6 +70,7 @@ public class UserEntity {
     
     public UserDTO toDTO() {
         return UserDTO.builder()
+                .userNo(userNo)
                 .id(id)
                 .name(name)
                 .passwd(passwd)

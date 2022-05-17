@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService{
     public List<CategoryDTO> findAllCategoriesByUserNo(Long user_no) {
         List<CategoryEntity> categoryEntities = this.categoryRepository.findAll();
 
-        this.categoryRepository.findAllByUserNoUserNo(user_no);
+        this.categoryRepository.findAllByUserUserNo(user_no);
 
         return categoryEntities.stream().map(
                 entity -> entity.toDTO()
@@ -42,9 +42,22 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public CategoryDTO registerNewCategory(CategoryDTO categoryDto) {
-        this.categoryRepository.save(categoryDto.toEntity());
+        Long user_no = categoryDto.getUserNo();
+        Optional<UserEntity> user = this.userRepository.findById(user_no);
 
-        return categoryDto;
+        if (user.isPresent()) {
+            log.info(user.get().toDTO().toString());
+            CategoryEntity category = CategoryEntity.builder()
+                    .categoryName(categoryDto.getCategoryName())
+                    .user(user.get())
+                    .upperBound(categoryDto.getUpperBound())
+                    .build();
+            log.info(category.toDTO().toString());
+
+            return this.categoryRepository.saveAndFlush(category).toDTO();
+        }
+
+        return null;
     }
 
     @Override
