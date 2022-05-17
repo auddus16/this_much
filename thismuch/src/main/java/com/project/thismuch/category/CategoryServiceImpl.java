@@ -31,9 +31,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<CategoryDTO> findAllCategoriesByUserNo(Long user_no) {
-        List<CategoryEntity> categoryEntities = this.categoryRepository.findAll();
-
-        this.categoryRepository.findAllByUserUserNo(user_no);
+        List<CategoryEntity> categoryEntities = this.categoryRepository.findAllByUserUserNo(user_no);;
 
         return categoryEntities.stream().map(
                 entity -> entity.toDTO()
