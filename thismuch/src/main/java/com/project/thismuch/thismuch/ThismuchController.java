@@ -26,10 +26,25 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/thismuch")
-class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
+class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Controller
 	
 	@Autowired
 	private final ThismuchService thismuchService;
+	
+	@Operation(summary = "총 거래 내역 조회 (캘린더)", description = "조회날짜를 기준으로 이번 달 거래내역을 조회한다.(캘린더) - 0:수입, 1:지출")
+	@RequestMapping(value="/tran/{today}", method=RequestMethod.GET)
+	public ResponseEntity<?> searchTranList(@Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException {
+		
+		log.info("[/tran] 총 거래내역 조회(캘린더)");
+		
+		long userNo = 1; //session 값 받아오는 부분 수정해야함.
+		UserEntity user=new UserEntity();
+		user.setUserNo(userNo);
+		
+		List<Optional<Object>> tranList= thismuchService.selectTranAllByPeriod(user, today);
+		
+		return ResponseEntity.ok(tranList);
+	}
 	
 	@Operation(summary = "총 지출 내역 조회", description = "원하는 기간의 총 지출 내역을 조회한다.")
 	@RequestMapping(value="/spending/{fromDate}/{toDate}", method=RequestMethod.GET)
@@ -66,6 +81,7 @@ class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
 	@Operation(summary = "이만큼 정보 조회", description = "조회날짜를 기준으로 이번 달의 이만큼 정보를 조회한다.")
 	@RequestMapping(value="/stats/{today}", method=RequestMethod.GET)
 	public ResponseEntity<?> searchTranFinNum(@Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException{
+		
 		log.info("[/stats] 이만큼 정보 조회");
 
 		long userNo = 1; //session 값 받아오는 부분 수정해야함.
@@ -79,25 +95,11 @@ class ThismuchController { // 이만큼 탭  + 수입/지출 조회 Controller
 		
 		//고정 지출 리스트
 		result.put("fixed_spending_list", thismuchService.getFixedCostList(user, today));
+		
 		//월 지출 리스트
+		result.put("month_list", thismuchService.getTotalCostByMonth(user, today));
 		
 		return ResponseEntity.ok(result);
 	}
-	
-//	@Operation(summary = "이만큼 정보 조회", description = "원하는 기간의 이만큼 정보를 조회한다.")
-//	@RequestMapping(value="/test", method=RequestMethod.GET)
-//	public ResponseEntity<?> test() throws ParseException{
-//		log.info("[/test]");
-//		
-//		long userNo = 1; //session 값 받아오는 부분 수정해야함.
-//		UserEntity user=new UserEntity();
-//		user.setUserNo(userNo);
-////		Object obj = thismuchService.test(user, "20220512", "20220513");
-////		
-////		System.out.println(obj.getClass().getName().getClass());
-//		Map<String, Optional<String>> result = thismuchService.getTotalCostByCategory(user, "20220512", "20220513");
-//		
-//		return ResponseEntity.ok(result);
-//	}
 	
 }

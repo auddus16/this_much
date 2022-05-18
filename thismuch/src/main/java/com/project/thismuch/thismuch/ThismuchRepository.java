@@ -16,6 +16,10 @@ import com.project.thismuch.data.entities.UserEntity;
 @Repository
 public interface ThismuchRepository extends CrudRepository<TransitionEntity, Long>{
 	
+	//총 거래내역 검색 - 캘린더
+	@Query("SELECT tran.tranTime, tran.incomeOutcome, tran.cost FROM Transition tran where tran.userNo = :user AND tran.tranTime BETWEEN :fromDate AND :toDate")
+	List<Optional<Object>> findTranAllByUserNo(@Param("user")UserEntity user, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
+	
 	//총 지출내역 검색
 	@Query("SELECT tran FROM Transition tran where tran.userNo = :user AND tran.incomeOutcome = 1 AND tran.tranTime BETWEEN :fromDate AND :toDate")
 	List<Optional<TransitionEntity>> findSpendingByUserNo(@Param("user")UserEntity user, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
@@ -32,6 +36,9 @@ public interface ThismuchRepository extends CrudRepository<TransitionEntity, Lon
 	@Query("SELECT cate FROM Category cate where cate.userNo = :user")
 	List<Optional<CategoryEntity>> findCategoryAll(@Param("user")UserEntity user);
 	
+	//월별 총 지출내역 검색
+	@Query("SELECT SUM(tran.cost) FROM Transition tran where tran.userNo = :user AND tran.incomeOutcome = 1 AND tran.tranTime BETWEEN :fromDate AND :toDate")
+	Optional<String> findTotalCostByMonth(@Param("user")UserEntity user, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
 	
 }
 

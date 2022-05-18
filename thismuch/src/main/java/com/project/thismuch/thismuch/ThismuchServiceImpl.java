@@ -3,7 +3,7 @@ package com.project.thismuch.thismuch;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,12 +51,13 @@ public class ThismuchServiceImpl implements ThismuchService{
 	}
 	
 	//오늘날짜 기준으로 fromDate, toDate 생성하기.
-	public LocalDate[] createDate(String today, int months) {//months는 몇 개월로 생성할 지(1->1개월)
+	public LocalDate[] createDate(LocalDate today, int months) {//months는 몇 개월로 생성할 지(1->1개월)
 		
-		LocalDate toDate = stringToLocalDate2(today);
+		LocalDate toDate = today;
 		LocalDate fromDate = toDate.minusMonths(months);
 		
 		fromDate = fromDate.minusDays(fromDate.getDayOfMonth()-1);
+		toDate = toDate.with(TemporalAdjusters.lastDayOfMonth());
 		
 		log.info(fromDate+"~"+toDate);
 		
@@ -88,7 +89,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 		List<Optional<CategoryEntity>> cateList = thismuchRepository.findCategoryAll(user); //category List
 		
 		//조회날짜로 기간 구하기(20220512 -> 20220501)
-		LocalDate[] date = createDate(today, 0);
+		LocalDate[] date = createDate(stringToLocalDate2(today), 0);
 		log.info("카테고리 총 지출 조회기간: "+date[0]+"~"+date[1]);
 		
 		//비용 계산
@@ -108,8 +109,8 @@ public class ThismuchServiceImpl implements ThismuchService{
 	@Override
 	public Map<String, Optional<String>> getFixedCostList(UserEntity user, String today)throws ParseException {
 		
-		//조회날짜로 기간 구하기(20220512 -> 20220401~20220512)
-		LocalDate[] date = createDate(today, 1);
+		//조회날짜로 기간 구하기(20220512 -> 20220401~20220531)
+		LocalDate[] date = createDate(stringToLocalDate2(today), 1);
 		log.info("고정지출 조회기간: "+date[0]+"~"+date[1]);
 		
 		List<Optional<TransitionEntity>> tranList = thismuchRepository.findSpendingByUserNo(user, date[0], date[1]);
@@ -133,6 +134,40 @@ public class ThismuchServiceImpl implements ThismuchService{
 		
 		
 		return resultList;
+	}
+	
+	@Override
+	public Map<String, Optional<String>> getTotalCostByMonth(UserEntity user, String today)throws ParseException {
+		
+		//비용 계산
+		Map<String, Optional<String>> resultList = new HashMap<String, Optional<String>>();		
+		
+		LocalDate day = stringToLocalDate2(today);
+		LocalDate[] date = new LocalDate[2];
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
+		for(int i=0; i<5; i++) {
+			
+			date = createDate(day, 0);
+			
+			Optional<String> totalCost = thismuchRepository.findTotalCostByMonth(user, date[0], date[1]);
+			
+			resultList.put(date[0].format(formatter), totalCost);
+			
+			day = day.minusMonths(1);
+			
+		}
+		
+		return resultList;
+	}
+
+	@Override
+	public List<Optional<Object>> selectTranAllByPeriod(UserEntity user, String today) throws ParseException {
+		
+		LocalDate[] date = createDate(stringToLocalDate2(today), 0);
+		
+//		System.out.println(thismuchRepository.findTranAllByUserNo(user, date[0], date[1]));
+		
+		return thismuchRepository.findTranAllByUserNo(user, date[0], date[1]);
 	}
 	
 

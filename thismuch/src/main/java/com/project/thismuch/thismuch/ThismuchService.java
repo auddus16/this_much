@@ -20,7 +20,11 @@ public interface ThismuchService {
 	Map<String, Optional<String>> getTotalCostByCategory(UserEntity user, String today)throws ParseException;
 	
 	//fromDate~toDate까지 월별 총 지출비용 조회
+	Map<String, Optional<String>> getTotalCostByMonth(UserEntity user, String today) throws ParseException;
 	
 	//fromDate~toDate까지 고정지출 조회
 	Map<String, Optional<String>> getFixedCostList(UserEntity user, String today)throws ParseException;
+	
+	//fromDate~toDate까지 총 거래내역(지출, 수입) 조회(캘린더)
+	List<Optional<Object>> selectTranAllByPeriod(UserEntity user, String today)throws ParseException;
 }
