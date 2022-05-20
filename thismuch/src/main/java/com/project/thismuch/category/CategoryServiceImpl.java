@@ -44,13 +44,11 @@ public class CategoryServiceImpl implements CategoryService{
         Optional<UserEntity> user = this.userRepository.findById(user_no);
 
         if (user.isPresent()) {
-            log.info(user.get().toDTO().toString());
             CategoryEntity category = CategoryEntity.builder()
                     .categoryName(categoryDto.getCategoryName())
                     .user(user.get())
                     .upperBound(categoryDto.getUpperBound())
                     .build();
-            log.info(category.toDTO().toString());
 
             return this.categoryRepository.saveAndFlush(category).toDTO();
         }
