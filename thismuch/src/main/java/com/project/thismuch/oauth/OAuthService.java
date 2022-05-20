@@ -1,7 +1,10 @@
 package com.project.thismuch.oauth;
 
+import com.project.thismuch.data.dto.UserDTO;
+import com.project.thismuch.data.entities.TransitionEntity;
 import com.project.thismuch.data.entities.UserEntity;
 import com.project.thismuch.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +12,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class OAuthService {
 
@@ -21,7 +26,7 @@ public class OAuthService {
     private final String state = "b80BLsfigm9OokPTjy03elbJqRHOfGSY";
     private final String auth_type = "0";
 
-    private UserRepository userRepository = null;
+    private final UserRepository userRepository;
 
     @Autowired
     public OAuthService(UserRepository userRepository) {
@@ -29,6 +34,12 @@ public class OAuthService {
     }
 
     public void registerUser(UserEntity user) {
+        this.userRepository.save(user);
+    }
+
+    public void updateCode(Long user_no, String code) {
+        UserEntity user = this.userRepository.getOne(user_no);
+        user.setCode(code);
         this.userRepository.save(user);
     }
 
