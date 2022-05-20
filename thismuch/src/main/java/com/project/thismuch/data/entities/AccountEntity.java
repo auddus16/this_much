@@ -18,10 +18,9 @@ import javax.persistence.*;
 public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "account_no")
-    private Integer accountNo;      // pk
-    @ManyToOne
-    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no"))
+    private Long accountNo;      // pk
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no", referencedColumnName = "userNo")
     private UserEntity userNo;         // fk
     @Column(name = "bank_name")
     private String bankName;        // 은행이름

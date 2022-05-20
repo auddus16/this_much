@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @Builder
 public class AccountDTO {
-    private Integer accountNo;      // pk
+    private Long accountNo;      // pk
     private UserEntity userNo;         // fk
     private String bankName;        // 은행이름
     private String accountNumber;   // 계좌번호

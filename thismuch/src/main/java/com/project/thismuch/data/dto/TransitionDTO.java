@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @Builder
 public class TransitionDTO {
-    private Integer tranNo;
+    private Long tranNo;
     private UserEntity userNo;
     private AccountEntity accountNo;
     private CategoryEntity categoryNo;

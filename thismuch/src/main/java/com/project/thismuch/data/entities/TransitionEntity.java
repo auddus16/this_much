@@ -39,18 +39,18 @@ public class TransitionEntity {
     @SequenceGenerator(name = "transition_sequence", sequenceName = "transition_sequence", allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "transition_sequence")
     @JsonIgnore
-    private Integer tranNo;
+    private Long tranNo;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
+    @JoinColumn(name = "user_no", referencedColumnName = "userNo")
     private UserEntity userNo;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "account_no", foreignKey = @ForeignKey(name = "account_no"))
+    @JoinColumn(name = "account_no", referencedColumnName = "accountNo")
     private AccountEntity accountNo;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "category_no", foreignKey = @ForeignKey(name = "category_no"))
+    @JoinColumn(name = "category_no", referencedColumnName = "categoryNo")
     private CategoryEntity categoryNo;
 
     @Column(name = "cost")
