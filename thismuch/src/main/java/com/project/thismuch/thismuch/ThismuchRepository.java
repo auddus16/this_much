@@ -28,17 +28,20 @@ public interface ThismuchRepository extends CrudRepository<TransitionEntity, Lon
 	@Query("SELECT tran FROM Transition tran where tran.userNo = :user AND tran.incomeOutcome = 0 AND tran.tranTime BETWEEN :fromDate AND :toDate")
 	List<Optional<TransitionEntity>> findIncomeByUserNo(@Param("user")UserEntity user, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
 	
-	//카테고리별 총 지출 검색
+	//카테고리별 총 지출 통계
 	@Query("SELECT SUM(tran.cost) FROM Transition tran where tran.categoryNo = :category AND tran.userNo = :user AND tran.tranTime BETWEEN :fromDate AND :toDate ORDER BY SUM(tran.cost) desc")
-	Optional<String> findTotalCostByCategory(@Param("user")UserEntity user, @Param("category")CategoryEntity category, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
+	Optional<String> findTotalSpendingByCategory(@Param("user")UserEntity user, @Param("category")CategoryEntity category, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
 	
-	//카테고리 리스트 전체 조회
+	//카테고리 리스트 전체 검색
 	@Query("SELECT cate FROM Category cate where cate.userNo = :user")
 	List<Optional<CategoryEntity>> findCategoryAll(@Param("user")UserEntity user);
 	
-	//월별 총 지출내역 검색
+	//월별 총 지출액 통계
 	@Query("SELECT SUM(tran.cost) FROM Transition tran where tran.userNo = :user AND tran.incomeOutcome = 1 AND tran.tranTime BETWEEN :fromDate AND :toDate")
-	Optional<String> findTotalCostByMonth(@Param("user")UserEntity user, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
+	Optional<String> findTotalSpendingByMonth(@Param("user")UserEntity user, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
 	
+	//월별 총 수입액 통계
+	@Query("SELECT SUM(tran.cost) FROM Transition tran where tran.userNo = :user AND tran.incomeOutcome = 0 AND tran.tranTime BETWEEN :fromDate AND :toDate")
+	Optional<String> findTotalIncomeByMonth(@Param("user")UserEntity user, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
 }
 

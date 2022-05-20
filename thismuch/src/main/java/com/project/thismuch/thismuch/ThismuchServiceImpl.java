@@ -67,24 +67,26 @@ public class ThismuchServiceImpl implements ThismuchService{
 	}
 	
 	@Override
-	public List<Optional<TransitionEntity>> selectSpendingByPeriod(UserEntity user, String fromDate, String toDate) throws ParseException{ // 총 지출 내역 조회
+	public List<Optional<TransitionEntity>> selectSpendingByPeriod(UserEntity user, String today) throws ParseException{ // 총 지출 내역 조회
 		
-		LocalDate[] date = stringToLocalDate(fromDate, toDate);
+		LocalDate day = stringToLocalDate2(today);
+		LocalDate[] date = createDate(day, 0);
 		
 		return thismuchRepository.findSpendingByUserNo(user, date[0], date[1]);
 	
 	}
 	
 	@Override
-	public List<Optional<TransitionEntity>> selectIncomeByPeriod(UserEntity user, String fromDate, String toDate) throws ParseException {
+	public List<Optional<TransitionEntity>> selectIncomeByPeriod(UserEntity user, String today) throws ParseException {
 		
-		LocalDate[] date = stringToLocalDate(fromDate, toDate);
+		LocalDate day = stringToLocalDate2(today);
+		LocalDate[] date = createDate(day, 0);
 		
 		return thismuchRepository.findIncomeByUserNo(user, date[0], date[1]);
 	}
 	
 	@Override
-	public Map<String, Optional<String>>getTotalCostByCategory(UserEntity user, String today) throws ParseException {
+	public Map<String, Optional<String>>getTotalSpendingByCategory(UserEntity user, String today) throws ParseException {
 		
 		List<Optional<CategoryEntity>> cateList = thismuchRepository.findCategoryAll(user); //category List
 		
@@ -97,7 +99,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 
 		for(int i=0; i<cateList.size(); i++) {
 			
-			Optional<String> cate = thismuchRepository.findTotalCostByCategory(user, cateList.get(i).get(), date[0], date[1]);
+			Optional<String> cate = thismuchRepository.findTotalSpendingByCategory(user, cateList.get(i).get(), date[0], date[1]);
 			
 			resultList.put(cateList.get(i).get().getCategoryName(), cate);
 			
@@ -107,7 +109,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 	}
 
 	@Override
-	public Map<String, Optional<String>> getFixedCostList(UserEntity user, String today)throws ParseException {
+	public Map<String, Optional<String>> getFixedSpendingList(UserEntity user, String today)throws ParseException {
 		
 		//조회날짜로 기간 구하기(20220512 -> 20220401~20220531)
 		LocalDate[] date = createDate(stringToLocalDate2(today), 1);
@@ -137,7 +139,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 	}
 	
 	@Override
-	public Map<String, Optional<String>> getTotalCostByMonth(UserEntity user, String today)throws ParseException {
+	public Map<String, Optional<String>> getTotalSpendingByMonthForFive(UserEntity user, String today)throws ParseException {
 		
 		//비용 계산
 		Map<String, Optional<String>> resultList = new HashMap<String, Optional<String>>();		
@@ -149,7 +151,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 			
 			date = createDate(day, 0);
 			
-			Optional<String> totalCost = thismuchRepository.findTotalCostByMonth(user, date[0], date[1]);
+			Optional<String> totalCost = thismuchRepository.findTotalSpendingByMonth(user, date[0], date[1]);
 			
 			resultList.put(date[0].format(formatter), totalCost);
 			
@@ -169,6 +171,27 @@ public class ThismuchServiceImpl implements ThismuchService{
 		
 		return thismuchRepository.findTranAllByUserNo(user, date[0], date[1]);
 	}
-	
 
+	@Override
+	public Optional<String> getTotalIncomeByMonth(UserEntity user, String today) throws ParseException {
+
+		LocalDate day = stringToLocalDate2(today);
+		LocalDate[] date = createDate(day, 0);
+		
+		Optional<String> resultList = thismuchRepository.findTotalIncomeByMonth(user, date[0], date[1]);
+	
+		return resultList;		
+	}
+
+	@Override
+	public Optional<String> getTotalSpendingByMonth(UserEntity user, String today) throws ParseException {
+		
+		LocalDate day = stringToLocalDate2(today);
+		LocalDate[] date = createDate(day, 0);
+		
+		Optional<String> resultList = thismuchRepository.findTotalSpendingByMonth(user, date[0], date[1]);
+	
+		return resultList;
+	}
+	
 }
