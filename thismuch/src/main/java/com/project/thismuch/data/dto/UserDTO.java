@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 public class UserDTO {
     private Integer userNo; // pk
-    private String id;
+    private String userId;
     private String name;
     private String passwd;
     private String telNum;                  // 전화 번호
@@ -33,7 +33,7 @@ public class UserDTO {
 
     public UserEntity toEntity() {
         return UserEntity.builder()
-                .id(id)
+                .userId(userId)
                 .name(name)
                 .passwd(passwd)
                 .telNum(telNum)
