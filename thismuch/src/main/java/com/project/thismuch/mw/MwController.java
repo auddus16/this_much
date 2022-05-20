@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.thismuch.data.dto.UserDTO;
 
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ExampleProperty;
-import io.swagger.annotations.Example;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,4 +51,23 @@ public class MwController {
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 	}
+    
+    // my info
+    @Operation(summary = "내 정보 조회", description = "토큰과 일련번호를 사용해 내 개인 정보를 조회합니다")
+    @GetMapping("/myinfo")
+	public ResponseEntity<?> searchMyInfo(){
+		log.info("/myinfo 호출");
+		
+		return ResponseEntity.ok(userService.myInfo());
+	}
+    
+    //balance
+    @Operation(summary = "잔액 조회", description = "핀테크 이용 번호를 통해 내 남은 잔액을 조회합니다")
+    @GetMapping("/balance")
+	public ResponseEntity<?> searchBalance(){
+		log.info("/balance 호출");
+		
+		return ResponseEntity.ok(userService.balance());
+	}
+   
 }
