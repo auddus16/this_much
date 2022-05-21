@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @Builder
 public class UserDTO {
+
     private Long userNo; // pk
     private String id;
     private String name;
@@ -33,7 +34,7 @@ public class UserDTO {
 
     public UserEntity toEntity() {
         return UserEntity.builder()
-                .id(id)
+                .userId(userId)
                 .name(name)
                 .passwd(passwd)
                 .telNum(telNum)

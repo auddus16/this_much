@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import com.project.thismuch.data.dto.UserDTO;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,14 +30,14 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @Builder
 public class UserEntity {
-    
+	
 	@Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "user_sequence")
     private Long userNo; // pk
 
-    @Column(name = "id", unique = true, nullable = false)
-    private String id;
+    @Column(name = "userId", unique = true, nullable = false)
+    private String userId;
     
     @Column(name = "name", nullable = false)
     private String name;
@@ -70,8 +71,7 @@ public class UserEntity {
     
     public UserDTO toDTO() {
         return UserDTO.builder()
-                .userNo(userNo)
-                .id(id)
+                .userId(userId)
                 .name(name)
                 .passwd(passwd)
                 .telNum(telNum)
