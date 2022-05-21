@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Slf4j
@@ -17,7 +18,7 @@ import java.util.Map;
 @RequestMapping(value = "/api/oauth")
 public class OAuthController {
 
-    private OAuthService oauthService;
+    private final OAuthService oauthService;
 
     @Autowired
     public OAuthController(OAuthService oauthService) {
@@ -26,8 +27,16 @@ public class OAuthController {
 
     @GetMapping(path = "/register")
     public ResponseEntity<Map<String, String>> register(
-            @RequestParam String code, @RequestParam String scope, @RequestParam String state
+            @RequestParam String code,
+            @RequestParam String scope,
+            @RequestParam String state,
+            HttpSession session
     ) {
+        Long user_no = (Long) session.getAttribute("user_no");
+        log.info(String.format("api/oauth/register: user_no: %d", user_no));
+
+        this.oauthService.updateCode(user_no, code);
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
                 body(this.oauthService.saveCodeInfo(code, scope, state));
     }

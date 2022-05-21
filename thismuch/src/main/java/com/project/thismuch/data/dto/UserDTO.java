@@ -18,8 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @Builder
 public class UserDTO {
-    private Integer userNo; // pk
-    private String userId;
+
+    private Long userNo; // pk
+    private String id;
     private String name;
     private String passwd;
     private String telNum;                  // 전화 번호

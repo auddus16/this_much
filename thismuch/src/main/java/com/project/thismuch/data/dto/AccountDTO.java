@@ -5,11 +5,6 @@ import com.project.thismuch.data.entities.UserEntity;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Column;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 @Slf4j
 @Data
 @NoArgsConstructor
@@ -17,7 +12,7 @@ import javax.persistence.ManyToOne;
 @ToString
 @Builder
 public class AccountDTO {
-    private Integer accountNo;      // pk
+    private Long accountNo;      // pk
     private UserEntity userNo;         // fk
     private String bankName;        // 은행이름
     private String accountNumber;   // 계좌번호
