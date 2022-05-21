@@ -1,14 +1,6 @@
 package com.project.thismuch.data.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.project.thismuch.data.dto.CategoryDTO;
 
@@ -31,9 +23,15 @@ public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer categoryNo;     // pk
-    @ManyToOne
-    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
-    private UserEntity userNo;         // fk
+    @ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "user_no",
+            referencedColumnName = "userNo"
+    )
+    private UserEntity user;         // fk
     @Column(name = "category_name")
     private String categoryName;    // 카테고리 이름
     @Column(name = "upper_bound")
@@ -42,7 +40,7 @@ public class CategoryEntity {
     public CategoryDTO toDTO() {
         return CategoryDTO.builder()
                 .categoryNo(categoryNo)
-                .userNo(userNo)
+                .userNo(user.getUserNo())
                 .categoryName(categoryName)
                 .upperBound(upperBound)
                 .build();
