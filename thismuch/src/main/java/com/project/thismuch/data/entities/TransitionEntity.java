@@ -42,7 +42,7 @@ public class TransitionEntity {
     private Integer tranNo;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "user_no", foreignKey = @ForeignKey(name = "user_no_fk"))
+    @JoinColumn(name = "user_no", foreignKey = @ForeignKey())
     private UserEntity userNo;
 
     @ManyToOne(fetch=FetchType.LAZY)
