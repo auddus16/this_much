@@ -37,7 +37,7 @@ public class OAuthController {
 
         this.oauthService.updateCode(user_no, code);
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
+        return ResponseEntity.status(HttpStatus.ACCEPTED).
                 body(this.oauthService.saveCodeInfo(code, scope, state));
     }
 

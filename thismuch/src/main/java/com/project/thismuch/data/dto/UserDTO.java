@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserDTO {
 
     private Long userNo; // pk
-    private String id;
+    private String userId;
     private String name;
     private String passwd;
     private String telNum;                  // 전화 번호
