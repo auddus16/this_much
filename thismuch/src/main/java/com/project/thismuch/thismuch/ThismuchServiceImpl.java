@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ThismuchServiceImpl implements ThismuchService{
 	
 	@Autowired
-	TransitionRepository thismuchRepository;
+	TransitionRepository transitionRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
 	
@@ -76,7 +76,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 		LocalDate day = stringToLocalDate2(today);
 		LocalDate[] date = createDate(day, 0);
 		
-		return thismuchRepository.findSpendingByUserNo(user, date[0], date[1]);
+		return transitionRepository.findSpendingByUserNo(user, date[0], date[1]);
 	
 	}
 	
@@ -86,7 +86,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 		LocalDate day = stringToLocalDate2(today);
 		LocalDate[] date = createDate(day, 0);
 		
-		return thismuchRepository.findIncomeByUserNo(user, date[0], date[1]);
+		return transitionRepository.findIncomeByUserNo(user, date[0], date[1]);
 	}
 	
 	@Override
@@ -103,7 +103,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 
 		for(int i=0; i<cateList.size(); i++) {
 			
-			Optional<String> cate = thismuchRepository.findTotalSpendingByCategory(user, cateList.get(i).get(), date[0], date[1]);
+			Optional<String> cate = transitionRepository.findTotalSpendingByCategory(user, cateList.get(i).get(), date[0], date[1]);
 			
 			resultList.put(cateList.get(i).get().getCategoryName(), cate);
 			
@@ -116,28 +116,34 @@ public class ThismuchServiceImpl implements ThismuchService{
 	public Map<String, Optional<String>> getFixedSpendingList(UserEntity user, String today)throws ParseException {
 		
 		//조회날짜로 기간 구하기(20220512 -> 20220401~20220531)
-		LocalDate[] date = createDate(stringToLocalDate2(today), 1);
+		LocalDate[] date = createDate(stringToLocalDate2(today), 4);
 		log.info("고정지출 조회기간: "+date[0]+"~"+date[1]);
 		
-		List<Optional<TransitionEntity>> tranList = thismuchRepository.findSpendingByUserNo(user, date[0], date[1]);
+		List<Optional<TransitionEntity>> tranList = transitionRepository.findSpendingByUserNo(user, date[0], date[1]);
 		
 		Map<String, Optional<String>> resultList = new HashMap<String, Optional<String>>();
 		Map<String, Integer> map = new HashMap<>();
+		Map<String, Integer> count = new HashMap<>();
 		
 		for(Optional<TransitionEntity> t : tranList) {
 			
 			if(map.containsKey(t.get().getContent())) {// 같은 내용의 거래내역이 존재
 				if(map.get(t.get().getContent()).equals(t.get().getCost())) {//금액까지 동일하다면..?
-					
-					resultList.put(t.get().getContent(), Optional.of(Integer.toString(t.get().getCost())));
+					count.put(t.get().getContent(), count.get(t.get().getContent())+1);
 				}
 			}
 			else {
 				map.put(t.get().getContent(), t.get().getCost());
+				count.put(t.get().getContent(), 1);
 			}
 			
 		}
-		
+		for(Optional<TransitionEntity> t : tranList) {
+			
+			if(count.get(t.get().getContent()) >= 2) { //2번 이상
+				resultList.put(t.get().getContent(), Optional.of(Integer.toString(t.get().getCost())));
+			}
+		}
 		
 		return resultList;
 	}
@@ -155,7 +161,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 			
 			date = createDate(day, 0);
 			
-			Optional<String> totalCost = thismuchRepository.findTotalSpendingByMonth(user, date[0], date[1]);
+			Optional<String> totalCost = transitionRepository.findTotalSpendingByMonth(user, date[0], date[1]);
 			
 			resultList.put(date[0].format(formatter), totalCost);
 			
@@ -173,7 +179,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 		
 //		System.out.println(thismuchRepository.findTranAllByUserNo(user, date[0], date[1]));
 		
-		return thismuchRepository.findTranAllByUserNo(user, date[0], date[1]);
+		return transitionRepository.findTranAllByUserNo(user, date[0], date[1]);
 	}
 
 	@Override
@@ -182,7 +188,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 		LocalDate day = stringToLocalDate2(today);
 		LocalDate[] date = createDate(day, 0);
 		
-		Optional<String> resultList = thismuchRepository.findTotalIncomeByMonth(user, date[0], date[1]);
+		Optional<String> resultList = transitionRepository.findTotalIncomeByMonth(user, date[0], date[1]);
 	
 		return resultList;		
 	}
@@ -193,7 +199,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 		LocalDate day = stringToLocalDate2(today);
 		LocalDate[] date = createDate(day, 0);
 		
-		Optional<String> resultList = thismuchRepository.findTotalSpendingByMonth(user, date[0], date[1]);
+		Optional<String> resultList = transitionRepository.findTotalSpendingByMonth(user, date[0], date[1]);
 	
 		return resultList;
 	}
