@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.project.thismuch.repositories.CategoryRepository;
+import com.project.thismuch.repositories.TransitionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ThismuchServiceImpl implements ThismuchService{
 	
 	@Autowired
-	ThismuchRepository thismuchRepository;
+	TransitionRepository thismuchRepository;
+	@Autowired
+	CategoryRepository categoryRepository;
 	
 	//String 날짜 변환(String->LocalDate)
 	public LocalDate[] stringToLocalDate(String date1, String date2) {
@@ -88,7 +92,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 	@Override
 	public Map<String, Optional<String>>getTotalSpendingByCategory(UserEntity user, String today) throws ParseException {
 		
-		List<Optional<CategoryEntity>> cateList = thismuchRepository.findCategoryAll(user); //category List
+		List<Optional<CategoryEntity>> cateList = categoryRepository.findCategoryAll(user); //category List
 		
 		//조회날짜로 기간 구하기(20220512 -> 20220501)
 		LocalDate[] date = createDate(stringToLocalDate2(today), 0);
