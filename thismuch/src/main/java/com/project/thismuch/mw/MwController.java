@@ -69,5 +69,13 @@ public class MwController {
 		
 		return ResponseEntity.ok(userService.balance());
 	}
-   
+    
+    // account/list
+    @Operation(summary = "내 계좌 조회", description = "토큰과 일련번호를 이용해 내 계좌목록을 조회합니다.")
+    @GetMapping("/myaccount/list")
+	public ResponseEntity<?> searchAccount(){
+		log.info("/myaccount/list 호출");
+		
+		return ResponseEntity.ok(userService.myaccount());
+	}
 }
