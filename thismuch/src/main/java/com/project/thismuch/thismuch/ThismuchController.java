@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.thismuch.data.entities.CategoryEntity;
 import com.project.thismuch.data.entities.TransitionEntity;
 import com.project.thismuch.data.entities.UserEntity;
 
@@ -92,6 +93,26 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 		List<Optional<TransitionEntity>> tranList= thismuchService.selectIncomeByPeriod(user, today);
 		
 		return ResponseEntity.ok(tranList);
+	}
+	
+	@Operation(summary = "카테고리별 거래 내용 조회", description = "카테고리명 기준으로 거래 내용 조회")
+	@RequestMapping(value="/cate/{cateName}", method=RequestMethod.GET)
+	public ResponseEntity<?> searchContent(@Parameter(name="cateName", description="카테고리명", example = "식비", in = ParameterIn.PATH)@PathVariable String cateName) throws ParseException{
+		
+		log.info("[/cate] 카테고리별 거래 내용 조회");
+		
+		long userNo = 1; //session 값 받아오는 부분 수정해야함.
+		UserEntity user=new UserEntity();
+		user.setUserNo(userNo);
+		
+		CategoryEntity cate = new CategoryEntity();
+		cate.setCategoryName(cateName);
+		
+		//카테고리 no로 검색해야함. CategoryService에 메소드 필요!
+		
+		List<String> contentList= thismuchService.selectContentByCategory(user, cate);
+		
+		return ResponseEntity.ok(contentList);
 	}
 	
 	@Operation(summary = "이만큼 정보 조회", description = "조회날짜를 기준으로 이번 달의 이만큼 정보를 조회한다.")
