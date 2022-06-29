@@ -5,18 +5,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.project.thismuch.repositories.CategoryRepository;
-import com.project.thismuch.repositories.TransitionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.thismuch.data.entities.CategoryEntity;
 import com.project.thismuch.data.entities.TransitionEntity;
 import com.project.thismuch.data.entities.UserEntity;
+import com.project.thismuch.repositories.CategoryRepository;
+import com.project.thismuch.repositories.TransitionRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +64,7 @@ public class ThismuchServiceImpl implements ThismuchService{
 		fromDate = fromDate.minusDays(fromDate.getDayOfMonth()-1);
 		toDate = toDate.with(TemporalAdjusters.lastDayOfMonth());
 		
-		log.info(fromDate+"~"+toDate);
+//		log.info(fromDate+"~"+toDate);
 		
 		LocalDate[] date = {fromDate, toDate};
 		
@@ -130,20 +131,32 @@ public class ThismuchServiceImpl implements ThismuchService{
 			if(map.containsKey(t.get().getContent())) {// 같은 내용의 거래내역이 존재
 				if(map.get(t.get().getContent()).equals(t.get().getCost())) {//금액까지 동일하다면..?
 					count.put(t.get().getContent(), count.get(t.get().getContent())+1);
+					System.out.println(count.get(t.get().getContent()));
 				}
 			}
 			else {
+				log.info(t.get().getContent());
 				map.put(t.get().getContent(), t.get().getCost());
 				count.put(t.get().getContent(), 1);
 			}
 			
 		}
-		for(Optional<TransitionEntity> t : tranList) {
-			
-			if(count.get(t.get().getContent()) >= 2) { //2번 이상
-				resultList.put(t.get().getContent(), Optional.of(Integer.toString(t.get().getCost())));
+		
+		Iterator<String> keys = count.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			if(count.get(key) >= 2) { //2번 이상
+				resultList.put(key, Optional.of(Integer.toString(map.get(key))));
+				log.info(key+count.get(key));
 			}
+			
 		}
+//		for(Optional<TransitionEntity> t : tranList) {
+//			
+//			if(count.get(t.get().getContent()) >= 2) { //2번 이상
+//				resultList.put(t.get().getContent(), Optional.of(Integer.toString(t.get().getCost())));
+//			}
+//		}
 		
 		return resultList;
 	}
@@ -202,6 +215,13 @@ public class ThismuchServiceImpl implements ThismuchService{
 		Optional<String> resultList = transitionRepository.findTotalSpendingByMonth(user, date[0], date[1]);
 	
 		return resultList;
+	}
+
+	@Override
+	public List<String> selectContentByCategory(UserEntity user, CategoryEntity category) throws ParseException {
+		
+		
+		return transitionRepository.findContentAllByUserNo(user, category);
 	}
 	
 }
