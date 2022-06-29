@@ -92,6 +92,28 @@ public class UserService implements UserDAO{
     	return response.getBody();
 	}
 	
+	// 등록 계좌 조회
+	public String myaccount() {
+		RestTemplate restTemplate = new RestTemplate();
+		
+		String url = "https://testapi.openbanking.or.kr/v2.0/account/list?";
+		String myToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk5Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NjA4NDkzMDksImp0aSI6ImQyMjM2MjI4LWUxODYtNDI0MC1iYzQ4LWUzNzkzOGUxZWM5YiJ9.RFu2-5AKoGF_KTZa0404FtGYeWjL9UFKqxspXYAS9NY";
+		String user_seq_num = "1101005599";
+    	HttpHeaders headers = new HttpHeaders(); 
+    	
+    	headers.set("accept", "application/json"); 
+    	headers.set("Authorization", "Bearer "+myToken); 
+    	HttpEntity<?> request = new HttpEntity<Object>(headers);
+		// 유저 일련번호(user_seq_num) /user/me 를 통해 조회가능
+		Map<String, String> params = new HashMap<String, String>();
+    	params.put("user_seq_no", "1101005599");
+    	params.put("include_cancel_yn", "N");
+    	params.put("sort_order", "D");
+    	ResponseEntity<String> response = restTemplate.exchange(url+mapToUrlParam(params), HttpMethod.GET, request, String.class);
+    	log.info(url+mapToUrlParam(params));
+    	return response.getBody();
+	}
+	
 	// 명연님이 만드신 parameter mapping
 	public String mapToUrlParam(Map<String, String> params) { 
     	
