@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.thismuch.data.dto.LoginRequestDTO;
 import com.project.thismuch.data.dto.UserDTO;
+import com.project.thismuch.data.dto.UserJoinRequestDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,7 @@ public class MwController {
 	// sing up + 추후 중복 아이디 및 형식에 따른 검증 구현 필요함 + Exception 추후 구현
 	@Operation(summary = "회원가입", description = "회원가입 기능 입니다")
 	@PostMapping("/signUp")
-	public ResponseEntity<?> signUp(@RequestBody UserDTO user, HttpServletRequest request){
+	public ResponseEntity<?> signUp(@RequestBody UserJoinRequestDTO user, HttpServletRequest request){
 		Long no = userService.signUp(user);
 		log.info(no.toString());
 		
@@ -42,11 +44,11 @@ public class MwController {
 	// login
     @Operation(summary = "로그인 기능", description = "사용자의 id와 password를 통해 로그인 합니다")
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody HashMap<String, String> login, HttpServletRequest request){
+	public ResponseEntity<?> login(@RequestBody LoginRequestDTO login, HttpServletRequest request){
     	HttpSession session = request.getSession();
 		log.info("/login 호출");
 		if(userService.login(login)) {	//로그인 성공
-			session.setAttribute("loginId", login.get("userId")); // 로그인 된 현재 id로 session 값 부여
+			session.setAttribute("loginId", login.getUserId()); // 로그인 된 현재 id로 session 값 부여
 			return ResponseEntity.ok(null);
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
