@@ -24,6 +24,7 @@ public class UserDTO {
     private String name;
     private String passwd;
     private String telNum;                  // 전화 번호
+    private String email;
     private LocalDate registDate;
     private String code;
     private String registerToken;
@@ -39,6 +40,7 @@ public class UserDTO {
                 .name(name)
                 .passwd(passwd)
                 .telNum(telNum)
+                .email(email)
                 .registDate(LocalDate.now())
                 .code(code)
                 .registerToken(registerToken)

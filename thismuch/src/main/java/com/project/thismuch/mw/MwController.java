@@ -35,10 +35,12 @@ public class MwController {
 	@Operation(summary = "회원가입", description = "회원가입 기능 입니다")
 	@PostMapping("/signUp")
 	public ResponseEntity<?> signUp(@RequestBody UserJoinRequestDTO user, HttpServletRequest request){
-		Long no = userService.signUp(user);
-		log.info(no.toString());
-		
-		return ResponseEntity.ok(null);
+		if(userService.validation(user)) {
+			Long no = userService.signUp(user);
+			log.info(no.toString());
+			return ResponseEntity.ok(null);
+		}
+		else	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 	
 	// login

@@ -50,6 +50,9 @@ public class UserEntity {
     @Column(name = "tel_num", nullable = false)
     private String telNum;                  // 전화 번호
     
+    @Column(name = "email", nullable = false)
+    private String email;
+    
     @Column(name = "regist_date", nullable = false)
     private LocalDate registDate;
     
@@ -80,6 +83,7 @@ public class UserEntity {
                 .name(name)
                 .passwd(passwd)
                 .telNum(telNum)
+                .email(email)
                 .registDate(LocalDate.now())
                 .code(code)
                 .registerToken(registerToken)

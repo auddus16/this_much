@@ -22,6 +22,7 @@ public class UserJoinRequestDTO {
     private String name;
     private String passwd;
     private String telNum;                  // 전화 번호
+    private String email;
     private String code;
     private String registerToken;
     private String accessToken;
@@ -35,6 +36,7 @@ public class UserJoinRequestDTO {
                 .name(name)
                 .passwd(passwd)
                 .telNum(telNum)
+                .email(email)
                 .code(code)
                 .registerToken(registerToken)
                 .accessToken(accessToken)
