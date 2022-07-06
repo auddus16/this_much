@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.thismuch.data.dto.UserDTO;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -42,11 +43,15 @@ public class UserEntity {
     @Column(name = "name", nullable = false)
     private String name;
     
+    @JsonIgnore
     @Column(name = "passwd", nullable = false)
     private String passwd;
     
     @Column(name = "tel_num", nullable = false)
     private String telNum;                  // 전화 번호
+    
+    @Column(name = "email", nullable = false)
+    private String email;
     
     @Column(name = "regist_date", nullable = false)
     private LocalDate registDate;
@@ -69,12 +74,16 @@ public class UserEntity {
     @Column(name = "user_serial_number", nullable = false)
     private String userSerialNumber;       // 사용자 일련 번호
     
+    @Column(name = "bankTranId", nullable = false)
+    private String bankTranId;
+    
     public UserDTO toDTO() {
         return UserDTO.builder()
                 .userId(userId)
                 .name(name)
                 .passwd(passwd)
                 .telNum(telNum)
+                .email(email)
                 .registDate(LocalDate.now())
                 .code(code)
                 .registerToken(registerToken)
@@ -82,6 +91,7 @@ public class UserEntity {
                 .refreshToken(refreshToken)
                 .expiration(expiration)
                 .userSerialNumber(userSerialNumber)
+                .bankTranId(bankTranId)
                 .build();
     }
 }
