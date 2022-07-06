@@ -1,7 +1,5 @@
 package com.project.thismuch.oauth;
 
-import com.project.thismuch.data.dto.UserDTO;
-import com.project.thismuch.data.entities.TransitionEntity;
 import com.project.thismuch.data.entities.UserEntity;
 import com.project.thismuch.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +10,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @Service

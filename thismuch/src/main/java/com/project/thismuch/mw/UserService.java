@@ -1,8 +1,11 @@
 package com.project.thismuch.mw;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.project.thismuch.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.project.thismuch.data.dao.UserDAO;
+import com.project.thismuch.data.dto.LoginRequestDTO;
 import com.project.thismuch.data.dto.UserDTO;
+import com.project.thismuch.data.dto.UserJoinRequestDTO;
 import com.project.thismuch.data.entities.UserEntity;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,15 +36,40 @@ public class UserService implements UserDAO{
         this.userRepository = userRepository;
     }
 	
-	public Long signUp(UserDTO user) {
+	public Long signUp(UserJoinRequestDTO user) {
+		UserEntity saveUser = user.toEntity();
+		long epoch = System.currentTimeMillis()/1000;
+		epoch /= 10;
 		String encryptedPassword = encoder.encode(user.getPasswd());
-		user.setPasswd(encryptedPassword);
-		return this.userRepository.saveAndFlush(user.toEntity()).getUserNo();
+		saveUser.setPasswd(encryptedPassword);
+		saveUser.setRegistDate(LocalDate.now());
+		saveUser.setBankTranId("M202200600"+epoch);
+		return this.userRepository.saveAndFlush(saveUser).getUserNo();
 	}
 	
-	public boolean login(HashMap<String, String> map) {
-		Optional<UserEntity> user= this.userRepository.findByUserId(map.get("userId"));
-		return encoder.matches(map.get("passwd"), user.get().getPasswd());
+	public boolean validation(UserJoinRequestDTO user) {
+		String idRegex = "^[A-Za-z0-9+]{5,}$";
+		String pwRegex = "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$";
+		String emailRegex = "^[0-9a-zA-Z]([-_\\\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$";
+		String phoneRegex = "^\\d{2,3}[-]\\d{3,4}[-]\\d{4}$";
+		Pattern idP = Pattern.compile(idRegex);
+		Pattern pwP = Pattern.compile(pwRegex);
+		Pattern emailP = Pattern.compile(emailRegex);
+		Pattern phoneP = Pattern.compile(phoneRegex);
+		Matcher idM = idP.matcher(user.getUserId());
+		Matcher pwM = pwP.matcher(user.getPasswd());
+		Matcher emailM = emailP.matcher(user.getEmail());
+		Matcher phoneM = phoneP.matcher(user.getTelNum());
+		
+		if(idM.matches() && pwM.matches() && emailM.matches() && phoneM.matches()) {
+			return true;
+		}
+		else	return false;
+	}
+	
+	public boolean login(LoginRequestDTO map) {
+		Optional<UserEntity> user= this.userRepository.findByUserId(map.getUserId());
+		return encoder.matches(map.getPasswd(), user.get().getPasswd());
 	}
 	
 	// my info 조회
