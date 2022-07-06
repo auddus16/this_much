@@ -43,7 +43,7 @@ public class UserService implements UserDAO{
 		String encryptedPassword = encoder.encode(user.getPasswd());
 		saveUser.setPasswd(encryptedPassword);
 		saveUser.setRegistDate(LocalDate.now());
-		saveUser.setBankTranId("M202200600"+epoch);
+		saveUser.setBankTranId("M202200570U"+epoch);
 		return this.userRepository.saveAndFlush(saveUser).getUserNo();
 	}
 	
