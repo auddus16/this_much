@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.thismuch.category.CategoryService;
 import com.project.thismuch.data.entities.CategoryEntity;
 import com.project.thismuch.data.entities.TransitionEntity;
 import com.project.thismuch.data.entities.UserEntity;
@@ -34,6 +35,9 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 	
 	@Autowired
 	private final ThismuchService thismuchService;
+	
+	@Autowired
+	private final CategoryService categoryService;
 	
 	@Operation(summary = "지출/수입 통계", description = "조회날짜를 기준으로 이번 달 총 지출/수입액을 조회한다.")
 	@RequestMapping(value="/{today}", method=RequestMethod.GET)
@@ -113,10 +117,7 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
-		CategoryEntity cate = new CategoryEntity();
-		cate.setCategoryName(cateName);
-		
-		//카테고리 no로 검색해야함. CategoryService에 메소드 필요!
+		CategoryEntity cate = categoryService.findCateNoByName(cateName, user);
 		
 		List<String> contentList= thismuchService.selectContentByCategory(user, cate);
 		
