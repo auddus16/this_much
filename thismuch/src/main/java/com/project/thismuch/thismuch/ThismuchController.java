@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,12 +37,13 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 	
 	@Operation(summary = "지출/수입 통계", description = "조회날짜를 기준으로 이번 달 총 지출/수입액을 조회한다.")
 	@RequestMapping(value="/{today}", method=RequestMethod.GET)
-	public ResponseEntity<?> searchCostAll(@Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException {
+	public ResponseEntity<?> searchCostAll(HttpServletRequest request, @Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException {
 		
 		log.info("[/] 지출/수입 통계");
 		
-		long userNo = 1; //session 값 받아오는 부분 수정해야함.
-		UserEntity user=new UserEntity();
+		HttpSession sess = request.getSession();
+		long userNo = (long) sess.getAttribute("loginId");
+		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
 		Map<String, Optional<String>> resultList = new HashMap<String, Optional<String>>();
@@ -52,12 +56,13 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 	
 	@Operation(summary = "총 거래 내역 조회 (캘린더)", description = "조회날짜를 기준으로 이번 달 거래내역을 조회한다.(캘린더) - 0:수입, 1:지출")
 	@RequestMapping(value="/tran/{today}", method=RequestMethod.GET)
-	public ResponseEntity<?> searchTranList(@Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException {
+	public ResponseEntity<?> searchTranList(HttpServletRequest request, @Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException {
 		
 		log.info("[/tran] 총 거래내역 조회(캘린더)");
 		
-		long userNo = 1; //session 값 받아오는 부분 수정해야함.
-		UserEntity user=new UserEntity();
+		HttpSession sess = request.getSession();
+		long userNo = (long) sess.getAttribute("loginId");
+		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
 		List<Optional<Object>> tranList= thismuchService.selectTranAllByPeriod(user, today);
@@ -67,12 +72,13 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 	
 	@Operation(summary = "총 지출 내역 조회", description = "조회날짜를 기준으로 이번 달 총 지출 내역을 조회한다.")
 	@RequestMapping(value="/spending/{today}", method=RequestMethod.GET)
-	public ResponseEntity<?> searchSpendingList(@Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException {
+	public ResponseEntity<?> searchSpendingList(HttpServletRequest request, @Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException {
 		
 		log.info("[/spending] 기간 총 지출 내역 조회");
 		
-		long userNo = 1; //session 값 받아오는 부분 수정해야함.
-		UserEntity user=new UserEntity();
+		HttpSession sess = request.getSession();
+		long userNo = (long) sess.getAttribute("loginId");
+		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
 		List<Optional<TransitionEntity>> tranList= thismuchService.selectSpendingByPeriod(user, today);
@@ -82,12 +88,13 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 	
 	@Operation(summary = "총 수입 내역 조회", description = "조회날짜를 기준으로 이번 달 총 수입 내역을 조회한다.")
 	@RequestMapping(value="/income/{today}", method=RequestMethod.GET)
-	public ResponseEntity<?> searchTranAnctNum(@Parameter(name="today", description="조회시작일자", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException{
+	public ResponseEntity<?> searchTranAnctNum(HttpServletRequest request, @Parameter(name="today", description="조회시작일자", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException{
 		
 		log.info("[/income] 기간 총 수입 내역 조회");
 		
-		long userNo = 1; //session 값 받아오는 부분 수정해야함.
-		UserEntity user=new UserEntity();
+		HttpSession sess = request.getSession();
+		long userNo = (long) sess.getAttribute("loginId");
+		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
 		List<Optional<TransitionEntity>> tranList= thismuchService.selectIncomeByPeriod(user, today);
@@ -97,12 +104,13 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 	
 	@Operation(summary = "카테고리별 거래 내용 조회", description = "카테고리명 기준으로 거래 내용 조회")
 	@RequestMapping(value="/cate/{cateName}", method=RequestMethod.GET)
-	public ResponseEntity<?> searchContent(@Parameter(name="cateName", description="카테고리명", example = "식비", in = ParameterIn.PATH)@PathVariable String cateName) throws ParseException{
+	public ResponseEntity<?> searchContent(HttpServletRequest request, @Parameter(name="cateName", description="카테고리명", example = "식비", in = ParameterIn.PATH)@PathVariable String cateName) throws ParseException{
 		
 		log.info("[/cate] 카테고리별 거래 내용 조회");
 		
-		long userNo = 1; //session 값 받아오는 부분 수정해야함.
-		UserEntity user=new UserEntity();
+		HttpSession sess = request.getSession();
+		long userNo = (long) sess.getAttribute("loginId");
+		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
 		CategoryEntity cate = new CategoryEntity();
@@ -117,12 +125,13 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 	
 	@Operation(summary = "이만큼 정보 조회", description = "조회날짜를 기준으로 이번 달의 이만큼 정보를 조회한다.")
 	@RequestMapping(value="/stats/{today}", method=RequestMethod.GET)
-	public ResponseEntity<?> searchTranFinNum(@Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException{
+	public ResponseEntity<?> searchTranFinNum(HttpServletRequest request, @Parameter(name="today", description="조회날짜", example = "YYYYMMDD", in = ParameterIn.PATH)@PathVariable String today) throws ParseException{
 		
 		log.info("[/stats] 이만큼 정보 조회");
 
-		long userNo = 1; //session 값 받아오는 부분 수정해야함.
-		UserEntity user=new UserEntity();
+		HttpSession sess = request.getSession();
+		long userNo = (long) sess.getAttribute("loginId");
+		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
 		Map<String, Map<String, Optional<String>>> result = new HashMap<String, Map<String, Optional<String>>>();
