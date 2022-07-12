@@ -1,9 +1,8 @@
 package com.project.thismuch.data.dto;
 
-import java.time.LocalDate;
-
 import com.project.thismuch.data.entities.UserEntity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,12 +17,17 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @Builder
 public class UserJoinRequestDTO {
+	
+	@ApiModelProperty(example = "example", notes="5자 이상")
     private String userId;
+	@ApiModelProperty(example = "예시")
     private String name;
+	@ApiModelProperty(example = "example123!", notes="8~25자 영어, 숫자, 특수문자 포함")
     private String passwd;
-    private String telNum;                  // 전화 번호
+	@ApiModelProperty(example = "02(010)-123(1234)-1234", notes="-(하이픈) 포함")
+    private String telNum;               // 전화 번호
+	@ApiModelProperty(example = "example@example.com")
     private String email;
-    private String code;
     private String registerToken;
     private String accessToken;
     private String refreshToken;
@@ -37,7 +41,6 @@ public class UserJoinRequestDTO {
                 .passwd(passwd)
                 .telNum(telNum)
                 .email(email)
-                .code(code)
                 .registerToken(registerToken)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
