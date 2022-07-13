@@ -51,6 +51,7 @@ public class MwController {
 		log.info("/login 호출");
 		if(userService.login(login)) {	//로그인 성공
 			session.setAttribute("loginId", login.getUserId()); // 로그인 된 현재 id로 session 값 부여
+			
 			return ResponseEntity.ok(null);
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
