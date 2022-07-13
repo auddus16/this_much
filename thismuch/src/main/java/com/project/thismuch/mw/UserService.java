@@ -72,14 +72,22 @@ public class UserService implements UserDAO{
 		return encoder.matches(map.getPasswd(), user.get().getPasswd());
 	}
 	
+	//userNo 조회
+	public Long loginSession(String id) {
+		Optional<UserEntity> user= this.userRepository.findByUserId(id);
+		return user.get().getUserNo();
+	}
+	
 	// my info 조회
-	public String myInfo() {
-    	
+	public String myInfo(Object myNo) {
+    	log.info("my info 조회 호출");
     	RestTemplate restTemplate = new RestTemplate();
+    	Optional<UserEntity> user = this.userRepository.findByUserNo(myNo);
+    	
     	
     	String url = "https://testapi.openbanking.or.kr/v2.0/user/me?user_seq_no=";
-    	String myToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk5Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NjA4NDkzMDksImp0aSI6ImQyMjM2MjI4LWUxODYtNDI0MC1iYzQ4LWUzNzkzOGUxZWM5YiJ9.RFu2-5AKoGF_KTZa0404FtGYeWjL9UFKqxspXYAS9NY";
-    	String myNumber = "1101005599";
+    	String myToken = user.get().getAccessToken();
+    	String myNumber = user.get().getUserSerialNumber();
     	HttpHeaders headers = new HttpHeaders(); 
     	
     	headers.set("accept", "application/json"); 
@@ -97,11 +105,12 @@ public class UserService implements UserDAO{
     }
 	
 	// 잔액 조회
-	public String balance() {
+	public String balance(Object myNo) {
 		RestTemplate restTemplate = new RestTemplate();
-    	
+		Optional<UserEntity> user = this.userRepository.findByUserNo(myNo);
+		
     	String url = "https://testapi.openbanking.or.kr/v2.0/account/balance/fin_num?";
-    	String myToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk5Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NjA4NDkzMDksImp0aSI6ImQyMjM2MjI4LWUxODYtNDI0MC1iYzQ4LWUzNzkzOGUxZWM5YiJ9.RFu2-5AKoGF_KTZa0404FtGYeWjL9UFKqxspXYAS9NY";
+    	String myToken = user.get().getAccessToken();
     	HttpHeaders headers = new HttpHeaders(); 
     	
     	headers.set("accept", "application/json"); 
@@ -110,8 +119,8 @@ public class UserService implements UserDAO{
     	HttpEntity<?> request = new HttpEntity<Object>(headers);
     	// parameter
     	Map<String, String> params = new HashMap<String, String>();
-    	params.put("bank_tran_id", "M202200600U123456789");
-    	params.put("fintech_use_num", "120220060088941044080530");
+    	params.put("bank_tran_id", user.get().getBankTranId());
+    	params.put("fintech_use_num", "120220057088941031089438");
     	params.put("tran_dtime", "20220521043010");
     	
     	log.info(request.toString());
@@ -123,12 +132,13 @@ public class UserService implements UserDAO{
 	}
 	
 	// 등록 계좌 조회
-	public String myaccount() {
+	public String myaccount(Object myNo) {
 		RestTemplate restTemplate = new RestTemplate();
+		Optional<UserEntity> user = this.userRepository.findByUserNo(myNo);
 		
 		String url = "https://testapi.openbanking.or.kr/v2.0/account/list?";
-		String myToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk5Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NjA4NDkzMDksImp0aSI6ImQyMjM2MjI4LWUxODYtNDI0MC1iYzQ4LWUzNzkzOGUxZWM5YiJ9.RFu2-5AKoGF_KTZa0404FtGYeWjL9UFKqxspXYAS9NY";
-		String user_seq_num = "1101005599";
+		String myToken = user.get().getAccessToken();
+		String user_seq_num = user.get().getUserSerialNumber();
     	HttpHeaders headers = new HttpHeaders(); 
     	
     	headers.set("accept", "application/json"); 
@@ -136,7 +146,7 @@ public class UserService implements UserDAO{
     	HttpEntity<?> request = new HttpEntity<Object>(headers);
 		// 유저 일련번호(user_seq_num) /user/me 를 통해 조회가능
 		Map<String, String> params = new HashMap<String, String>();
-    	params.put("user_seq_no", "1101005599");
+    	params.put("user_seq_no", user_seq_num);
     	params.put("include_cancel_yn", "N");
     	params.put("sort_order", "D");
     	ResponseEntity<String> response = restTemplate.exchange(url+mapToUrlParam(params), HttpMethod.GET, request, String.class);
