@@ -77,4 +77,28 @@ public class MwController {
 		Object myNo = session.getAttribute("loginId");
 		return ResponseEntity.ok(userService.myaccount(myNo));
 	}
+    
+    //transaction/list
+    @Operation(summary = "거래내역 조회", description = "거래고유번호와 핀테크이용번호를 통해 계좌의 거래내역을 조회합니다.")
+    @GetMapping("/transaction/list")
+    public ResponseEntity<?> searchTransaction(HttpServletRequest request){
+    	HttpSession session = request.getSession();
+    	Object myNo = session.getAttribute("loginId");
+    	return ResponseEntity.ok(userService.searchTransaction(myNo));
+    	//현재 string return중 연우님께 물어볼것
+    }
+    
+    //logout
+    @Operation(summary = "로그아웃", description = "로그아웃을 통해 세션을 만료합니다.")
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request){
+    	try {
+    		HttpSession session = request.getSession();
+    		session.invalidate();
+    		return ResponseEntity.ok(null);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    	}
+    }
 }

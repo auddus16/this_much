@@ -1,6 +1,8 @@
 package com.project.thismuch.mw;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -154,6 +156,38 @@ public class UserService implements UserDAO{
     	return response.getBody();
 	}
 	
+	public String searchTransaction(Object myNo) {
+		RestTemplate restTemplate = new RestTemplate();
+		Optional<UserEntity> user = this.userRepository.findByUserNo(myNo);
+		
+		String url = "https://testapi.openbanking.or.kr/v2.0/account/transaction_list/fin_num?";
+		String myToken = user.get().getAccessToken();
+		
+		String formatDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+		String formatDate2 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+		
+		HttpHeaders headers = new HttpHeaders();
+
+    	headers.set("accept", "application/json"); 
+    	headers.set("Authorization", "Bearer "+myToken);
+    	HttpEntity<?> request = new HttpEntity<Object>(headers);
+    	//openapi 조회
+    	Map<String, String> params = new HashMap<String, String>();
+    	params.put("bank_tran_id", user.get().getBankTranId());
+    	params.put("fintech_use_num", "120220057088941031089438");
+    	params.put("inquiry_type", "A"); //모든 내역 조회하기. 입금 I 출금 O 이거에 대한 나누는 영역 회의하기
+    	params.put("inquiry_base", "D");
+    	params.put("from_date", "20220101"); //조회 시작~
+    	params.put("to_date", formatDate2);	//조회 끝		이거 입력 받을건지 회의하기 우선임의로
+    	params.put("sort_order", "D");
+    	params.put("tran_dtime", formatDate);
+
+//    	ResponseEntity<Object[]> responseEntity = restTemplate.getForEntity(url+mapToUrlParam(params), Object[].class);
+//    	Object[] objects = responseEntity.getBody();
+    	ResponseEntity<String> response = restTemplate.exchange(url+mapToUrlParam(params), HttpMethod.GET, request, String.class);
+    	return response.getBody();
+	}
+	
 	// 명연님이 만드신 parameter mapping
 	public String mapToUrlParam(Map<String, String> params) { 
     	
@@ -169,4 +203,5 @@ public class UserService implements UserDAO{
     	}
     	return paramData.toString(); 
     }
+
 }
