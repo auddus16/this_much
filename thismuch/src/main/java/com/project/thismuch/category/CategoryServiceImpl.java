@@ -72,4 +72,12 @@ public class CategoryServiceImpl implements CategoryService{
         // it should throw runtime exception if there is no entity.
         return null;
     }
+    
+    @Override
+    public CategoryEntity findCateNoByName(String name, UserEntity user) {
+    	
+    	Optional<CategoryEntity> category = categoryRepository.findCategoryNo(user, name);
+    	
+    	return category.get();
+    }
 }
