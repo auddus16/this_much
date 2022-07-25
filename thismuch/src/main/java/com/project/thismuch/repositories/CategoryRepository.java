@@ -19,6 +19,6 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
     List<Optional<CategoryEntity>> findCategoryAll(@Param("user") UserEntity user);
     
     //카테고리이름으로 카테고리번호 검색
-    @Query("SELECT cate.categoryNo FROM Category cate where cate.user = :user AND cate.categoryName = :cateName")
+    @Query("SELECT cate FROM Category cate where cate.user = :user AND cate.categoryName = :cateName")
     Optional<CategoryEntity> findCategoryNo(@Param("user") UserEntity user, @Param("cateName")String cateName);
 }

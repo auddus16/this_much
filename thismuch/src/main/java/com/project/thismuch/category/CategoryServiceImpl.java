@@ -77,7 +77,7 @@ public class CategoryServiceImpl implements CategoryService{
     public CategoryEntity findCateNoByName(String name, UserEntity user) {
     	
     	Optional<CategoryEntity> category = categoryRepository.findCategoryNo(user, name);
-    	
+//    	System.out.println(categoryRepository.findCategoryNo(user, name).get().getCategoryNo());
     	return category.get();
     }
 }

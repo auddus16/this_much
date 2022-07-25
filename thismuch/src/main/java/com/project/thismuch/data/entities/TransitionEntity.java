@@ -43,14 +43,17 @@ public class TransitionEntity {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "user_no", referencedColumnName = "userNo")
+    @JsonIgnore
     private UserEntity userNo;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "account_no", referencedColumnName = "accountNo")
+    @JsonIgnore
     private AccountEntity accountNo;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "category_no", referencedColumnName = "categoryNo")
+    @JsonIgnore
     private CategoryEntity categoryNo;
 
     @Column(name = "cost")

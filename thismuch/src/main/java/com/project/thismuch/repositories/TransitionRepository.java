@@ -40,7 +40,11 @@ public interface TransitionRepository extends JpaRepository<TransitionEntity, Lo
     Optional<String> findTotalIncomeByMonth(@Param("user")UserEntity user, @Param("fromDate")LocalDate fromDate, @Param("toDate")LocalDate toDate);
     
     //카테고리별 거래내역 검색
-    @Query("SELECT tran.content FROM Transition tran where tran.userNo = :user AND tran.categoryNo = :category")
-    List<String> findContentAllByUserNo(@Param("user") UserEntity user, @Param("category") CategoryEntity category);
+    @Query("SELECT tran FROM Transition tran where tran.userNo = :user AND tran.categoryNo = :category")
+    List<TransitionEntity> findContentAllByUserNo(@Param("user") UserEntity user, @Param("category") CategoryEntity category);
+    
+    //비분류 카테고리 거래내역 검색
+    @Query("SELECT tran FROM Transition tran where tran.userNo = :user AND tran.categoryNo IS NULL")
+    List<TransitionEntity> findContentNoCategoryByUserNo(@Param("user") UserEntity user);
 
 }

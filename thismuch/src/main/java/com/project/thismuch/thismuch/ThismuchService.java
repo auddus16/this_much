@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.project.thismuch.data.dto.TransitionDTO;
 import com.project.thismuch.data.entities.CategoryEntity;
 import com.project.thismuch.data.entities.TransitionEntity;
 import com.project.thismuch.data.entities.UserEntity;
@@ -21,7 +22,7 @@ public interface ThismuchService {
 	Map<String, Optional<String>> getTotalSpendingByCategory(UserEntity user, String today)throws ParseException;
 	
 	//카테고리별 거래내역 조회
-	List<String> selectContentByCategory(UserEntity user, CategoryEntity category)throws ParseException;
+	List<TransitionEntity> selectContentByCategory(UserEntity user, CategoryEntity category)throws ParseException;
 	
 	//월별 총 지출비용 조회 - 5개월 간 
 	Map<String, Optional<String>> getTotalSpendingByMonthForFive(UserEntity user, String today) throws ParseException;

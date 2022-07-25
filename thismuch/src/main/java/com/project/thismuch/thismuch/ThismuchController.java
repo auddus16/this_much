@@ -45,8 +45,8 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 		
 		log.info("[/] 지출/수입 통계");
 		
-		HttpSession sess = request.getSession();
-		long userNo = (long) sess.getAttribute("loginId");
+//		HttpSession sess = request.getSession();
+		long userNo = 1;
 		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
@@ -64,8 +64,8 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 		
 		log.info("[/tran] 총 거래내역 조회(캘린더)");
 		
-		HttpSession sess = request.getSession();
-		long userNo = (long) sess.getAttribute("loginId");
+//		HttpSession sess = request.getSession();
+		long userNo = 1;
 		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
@@ -80,8 +80,8 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 		
 		log.info("[/spending] 기간 총 지출 내역 조회");
 		
-		HttpSession sess = request.getSession();
-		long userNo = (long) sess.getAttribute("loginId");
+//		HttpSession sess = request.getSession();
+		long userNo = 1;
 		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
@@ -96,8 +96,8 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 		
 		log.info("[/income] 기간 총 수입 내역 조회");
 		
-		HttpSession sess = request.getSession();
-		long userNo = (long) sess.getAttribute("loginId");
+//		HttpSession sess = request.getSession();
+		long userNo = 1;
 		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
@@ -112,14 +112,23 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 		
 		log.info("[/cate] 카테고리별 거래 내용 조회");
 		
-		HttpSession sess = request.getSession();
-		long userNo = (long) sess.getAttribute("loginId");
+//		HttpSession sess = request.getSession();
+		long userNo = 1;
 		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
+//		System.out.println(user.getUserNo());
+		CategoryEntity cate = new CategoryEntity();
+		if(cateName.equals("비분류")) {
+			
+//			cate = new CategoryEntity();
+			cate.setCategoryName("비분류");
+		}
+		else {
+			
+			cate = categoryService.findCateNoByName(cateName, user);
+		}
 		
-		CategoryEntity cate = categoryService.findCateNoByName(cateName, user);
-		
-		List<String> contentList= thismuchService.selectContentByCategory(user, cate);
+		List<TransitionEntity> contentList= thismuchService.selectContentByCategory(user, cate);
 		
 		return ResponseEntity.ok(contentList);
 	}
@@ -130,8 +139,8 @@ class ThismuchController { // 이만큼 탭  + 캘린더/수입/지출 조회 Co
 		
 		log.info("[/stats] 이만큼 정보 조회");
 
-		HttpSession sess = request.getSession();
-		long userNo = (long) sess.getAttribute("loginId");
+//		HttpSession sess = request.getSession();
+		long userNo = 1;
 		UserEntity user= new UserEntity();
 		user.setUserNo(userNo);
 		
