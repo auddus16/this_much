@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.thismuch.data.dto.TransitionDTO;
 import com.project.thismuch.data.entities.CategoryEntity;
 import com.project.thismuch.data.entities.TransitionEntity;
 import com.project.thismuch.data.entities.UserEntity;
@@ -123,20 +125,29 @@ public class ThismuchServiceImpl implements ThismuchService{
 		List<Optional<TransitionEntity>> tranList = transitionRepository.findSpendingByUserNo(user, date[0], date[1]);
 		
 		Map<String, Optional<String>> resultList = new HashMap<String, Optional<String>>();
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, List<Integer>> map = new HashMap<>();
 		Map<String, Integer> count = new HashMap<>();
 		
 		for(Optional<TransitionEntity> t : tranList) {
-			
 			if(map.containsKey(t.get().getContent())) {// 같은 내용의 거래내역이 존재
-				if(map.get(t.get().getContent()).equals(t.get().getCost())) {//금액까지 동일하다면..?
-					count.put(t.get().getContent(), count.get(t.get().getContent())+1);
-					System.out.println(count.get(t.get().getContent()));
+				List<Integer> mapV = map.get(t.get().getContent());
+				if(mapV.get(0).equals(t.get().getCost())) {//금액까지 동일하다면..?
+					log.info("금액까지 동일함."+t.get().getContent());
+					System.out.println(mapV.get(1)+"?"+t.get().getTranTime().getDayOfMonth());
+					if(Math.abs(mapV.get(1)-Integer.valueOf(t.get().getTranTime().getDayOfMonth()))<=2) {//날짜까지 동일하다면?
+						
+						log.info("날짜까지 동일함.");
+						count.put(t.get().getContent(), count.get(t.get().getContent())+1);
+					}
 				}
 			}
 			else {
 				log.info(t.get().getContent());
-				map.put(t.get().getContent(), t.get().getCost());
+				List<Integer> list = new ArrayList<>();
+				list.add(t.get().getCost());
+				list.add(Integer.valueOf(t.get().getTranTime().getDayOfMonth()));
+				
+				map.put(t.get().getContent(), list);
 				count.put(t.get().getContent(), 1);
 			}
 			
@@ -146,8 +157,8 @@ public class ThismuchServiceImpl implements ThismuchService{
 		while(keys.hasNext()) {
 			String key = keys.next();
 			if(count.get(key) >= 2) { //2번 이상
-				resultList.put(key, Optional.of(Integer.toString(map.get(key))));
-				log.info(key+count.get(key));
+				resultList.put(key, Optional.of(Integer.toString(map.get(key).get(0))));
+				log.info(key + count.get(key));
 			}
 			
 		}
@@ -218,10 +229,20 @@ public class ThismuchServiceImpl implements ThismuchService{
 	}
 
 	@Override
-	public List<String> selectContentByCategory(UserEntity user, CategoryEntity category) throws ParseException {
-		
-		
-		return transitionRepository.findContentAllByUserNo(user, category);
+	public List<TransitionEntity> selectContentByCategory(UserEntity user, CategoryEntity category) throws ParseException {
+		List<TransitionEntity> tranList = new ArrayList<>();;
+		if(category.getCategoryName().equals("비분류")) {
+			tranList = transitionRepository.findContentNoCategoryByUserNo(user);
+		}
+		else {
+			tranList = transitionRepository.findContentAllByUserNo(user, category);
+		}
+//		List<TransitionDTO> tranDTOList = new ArrayList<>();
+//		for(TransitionEntity t : tranList) {
+//			tranDTOList.add(t.toDTO());
+//		}
+		return tranList;
 	}
+	
 	
 }
