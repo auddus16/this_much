@@ -26,7 +26,6 @@ public class UserDTO {
     private String telNum;                  // 전화 번호
     private String email;
     private LocalDate registDate;
-    private String code;
     private String registerToken;
     private String accessToken;
     private String refreshToken;
@@ -42,7 +41,6 @@ public class UserDTO {
                 .telNum(telNum)
                 .email(email)
                 .registDate(LocalDate.now())
-                .code(code)
                 .registerToken(registerToken)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

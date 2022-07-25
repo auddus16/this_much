@@ -34,12 +34,6 @@ public class OAuthService {
         this.userRepository.save(user);
     }
 
-    public void updateCode(Long user_no, String code) {
-        UserEntity user = this.userRepository.getOne(user_no);
-        user.setCode(code);
-        this.userRepository.save(user);
-    }
-
     public Map<String, String> saveCodeInfo(String code, String scope, String state) {
         Map<String, String> map = new HashMap<>();
         map.put("code",         code);

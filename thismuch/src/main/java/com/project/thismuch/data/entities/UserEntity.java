@@ -56,9 +56,6 @@ public class UserEntity {
     @Column(name = "regist_date", nullable = false)
     private LocalDate registDate;
     
-    @Column(name = "code", nullable = false)
-    private String code;
-    
     @Column(name = "register_token", nullable = false, length=1000)
     private String registerToken;
     
@@ -85,7 +82,6 @@ public class UserEntity {
                 .telNum(telNum)
                 .email(email)
                 .registDate(LocalDate.now())
-                .code(code)
                 .registerToken(registerToken)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

@@ -17,5 +17,7 @@ public interface CategoryService {
 
     UserDTO findUserById(Long id);
 
-	CategoryEntity findCateNoByName(String name, UserEntity user);
+	  CategoryEntity findCateNoByName(String name, UserEntity user);
+
 }
+

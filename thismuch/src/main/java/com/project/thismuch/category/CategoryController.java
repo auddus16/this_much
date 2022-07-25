@@ -22,7 +22,7 @@ public class CategoryController {
 
     @GetMapping(path = "/getAll")
     public List<CategoryDTO> getAllCategories(HttpSession session) {
-        Long user_no = (Long) session.getAttribute("user_no");
+        Long user_no = (Long) session.getAttribute("loginId");
 
         log.info(String.format("get all categories of user_no: %d", user_no));
 
@@ -31,7 +31,7 @@ public class CategoryController {
 
     @PostMapping(path = "/register")
     public CategoryDTO registerCategory(@RequestBody CategoryDTO categoryDTO, HttpSession session) {
-        Long user_no = (Long) session.getAttribute("user_no");
+        Long user_no = (Long) session.getAttribute("loginId");
 
         categoryDTO.setUserNo(user_no);
         this.categoryService.registerNewCategory(categoryDTO);

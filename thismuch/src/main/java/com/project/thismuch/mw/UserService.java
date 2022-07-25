@@ -1,6 +1,8 @@
 package com.project.thismuch.mw;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -72,14 +74,22 @@ public class UserService implements UserDAO{
 		return encoder.matches(map.getPasswd(), user.get().getPasswd());
 	}
 	
+	//userNo 조회
+	public Long loginSession(String id) {
+		Optional<UserEntity> user= this.userRepository.findByUserId(id);
+		return user.get().getUserNo();
+	}
+	
 	// my info 조회
-	public String myInfo() {
-    	
+	public String myInfo(Object myNo) {
+    	log.info("my info 조회 호출");
     	RestTemplate restTemplate = new RestTemplate();
+    	Optional<UserEntity> user = this.userRepository.findByUserNo(myNo);
+    	
     	
     	String url = "https://testapi.openbanking.or.kr/v2.0/user/me?user_seq_no=";
-    	String myToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk5Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NjA4NDkzMDksImp0aSI6ImQyMjM2MjI4LWUxODYtNDI0MC1iYzQ4LWUzNzkzOGUxZWM5YiJ9.RFu2-5AKoGF_KTZa0404FtGYeWjL9UFKqxspXYAS9NY";
-    	String myNumber = "1101005599";
+    	String myToken = user.get().getAccessToken();
+    	String myNumber = user.get().getUserSerialNumber();
     	HttpHeaders headers = new HttpHeaders(); 
     	
     	headers.set("accept", "application/json"); 
@@ -97,11 +107,12 @@ public class UserService implements UserDAO{
     }
 	
 	// 잔액 조회
-	public String balance() {
+	public String balance(Object myNo) {
 		RestTemplate restTemplate = new RestTemplate();
-    	
+		Optional<UserEntity> user = this.userRepository.findByUserNo(myNo);
+		
     	String url = "https://testapi.openbanking.or.kr/v2.0/account/balance/fin_num?";
-    	String myToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk5Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NjA4NDkzMDksImp0aSI6ImQyMjM2MjI4LWUxODYtNDI0MC1iYzQ4LWUzNzkzOGUxZWM5YiJ9.RFu2-5AKoGF_KTZa0404FtGYeWjL9UFKqxspXYAS9NY";
+    	String myToken = user.get().getAccessToken();
     	HttpHeaders headers = new HttpHeaders(); 
     	
     	headers.set("accept", "application/json"); 
@@ -110,8 +121,8 @@ public class UserService implements UserDAO{
     	HttpEntity<?> request = new HttpEntity<Object>(headers);
     	// parameter
     	Map<String, String> params = new HashMap<String, String>();
-    	params.put("bank_tran_id", "M202200600U123456789");
-    	params.put("fintech_use_num", "120220060088941044080530");
+    	params.put("bank_tran_id", user.get().getBankTranId());
+    	params.put("fintech_use_num", "120220057088941031089438");
     	params.put("tran_dtime", "20220521043010");
     	
     	log.info(request.toString());
@@ -123,12 +134,13 @@ public class UserService implements UserDAO{
 	}
 	
 	// 등록 계좌 조회
-	public String myaccount() {
+	public String myaccount(Object myNo) {
 		RestTemplate restTemplate = new RestTemplate();
+		Optional<UserEntity> user = this.userRepository.findByUserNo(myNo);
 		
 		String url = "https://testapi.openbanking.or.kr/v2.0/account/list?";
-		String myToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDA1NTk5Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2NjA4NDkzMDksImp0aSI6ImQyMjM2MjI4LWUxODYtNDI0MC1iYzQ4LWUzNzkzOGUxZWM5YiJ9.RFu2-5AKoGF_KTZa0404FtGYeWjL9UFKqxspXYAS9NY";
-		String user_seq_num = "1101005599";
+		String myToken = user.get().getAccessToken();
+		String user_seq_num = user.get().getUserSerialNumber();
     	HttpHeaders headers = new HttpHeaders(); 
     	
     	headers.set("accept", "application/json"); 
@@ -136,11 +148,43 @@ public class UserService implements UserDAO{
     	HttpEntity<?> request = new HttpEntity<Object>(headers);
 		// 유저 일련번호(user_seq_num) /user/me 를 통해 조회가능
 		Map<String, String> params = new HashMap<String, String>();
-    	params.put("user_seq_no", "1101005599");
+    	params.put("user_seq_no", user_seq_num);
     	params.put("include_cancel_yn", "N");
     	params.put("sort_order", "D");
     	ResponseEntity<String> response = restTemplate.exchange(url+mapToUrlParam(params), HttpMethod.GET, request, String.class);
     	log.info(url+mapToUrlParam(params));
+    	return response.getBody();
+	}
+	
+	public String searchTransaction(Object myNo) {
+		RestTemplate restTemplate = new RestTemplate();
+		Optional<UserEntity> user = this.userRepository.findByUserNo(myNo);
+		
+		String url = "https://testapi.openbanking.or.kr/v2.0/account/transaction_list/fin_num?";
+		String myToken = user.get().getAccessToken();
+		
+		String formatDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+		String formatDate2 = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+		
+		HttpHeaders headers = new HttpHeaders();
+
+    	headers.set("accept", "application/json"); 
+    	headers.set("Authorization", "Bearer "+myToken);
+    	HttpEntity<?> request = new HttpEntity<Object>(headers);
+    	//openapi 조회
+    	Map<String, String> params = new HashMap<String, String>();
+    	params.put("bank_tran_id", user.get().getBankTranId());
+    	params.put("fintech_use_num", "120220057088941031089438");
+    	params.put("inquiry_type", "A"); //모든 내역 조회하기. 입금 I 출금 O 이거에 대한 나누는 영역 회의하기
+    	params.put("inquiry_base", "D");
+    	params.put("from_date", "20220101"); //조회 시작~
+    	params.put("to_date", formatDate2);	//조회 끝		이거 입력 받을건지 회의하기 우선임의로
+    	params.put("sort_order", "D");
+    	params.put("tran_dtime", formatDate);
+
+//    	ResponseEntity<Object[]> responseEntity = restTemplate.getForEntity(url+mapToUrlParam(params), Object[].class);
+//    	Object[] objects = responseEntity.getBody();
+    	ResponseEntity<String> response = restTemplate.exchange(url+mapToUrlParam(params), HttpMethod.GET, request, String.class);
     	return response.getBody();
 	}
 	
@@ -159,4 +203,5 @@ public class UserService implements UserDAO{
     	}
     	return paramData.toString(); 
     }
+
 }
