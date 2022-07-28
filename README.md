@@ -8,20 +8,19 @@
 
 | 이름   | 역할     | 아이디                              |
 | ------ | -------- | ----------------------------------- |
-| 김준호 | Backend  |                                     |
-| 노명욱 | Backend  |                                     |
-| 이연우 | Frontend | [Nunu-0](https://github.com/Nunu-0) |
-| 황명연 | Backend  |                                     |
+| 김준호 | Backend  |[comeeasy](https://github.com/auddus16/this_much)|
+| 노명욱 | Backend  |[NohMyungWook](https://github.com/NohMyungWook)|
+| 이연우 | Frontend |[Nunu-0](https://github.com/Nunu-0) |
+| 황명연 | Backend  |[auddus16](https://github.com/auddus16)|
 
-## 🗓️ 2022.05.10 ~ ing
+## 🗓️ 2022.05.10 ~ 2022.07.28
 
-## 🔗 
+## 📺▶
 
-## 📺▶️
+## 💻 Front-End : React, PostCSS
 
-## 💻 React, PostCSS
-
-## 구현
+---
+## 프론트 구현
 
 1. 도넛 그래프, 선 그래프로 달 지출 내역 출력
 2. Bootstrap gird를 사용하여 반응형 웹페이지 제작
@@ -36,34 +35,3 @@
 
 ---
 
-## 사용 모듈
-
-### React Router Dom
-
-`yarn add react-router-dom`
-
-### SASS(SCSS)
-
-` npm install sass`
-
-### fortawesome
-
-```
- yarn add @fortawesome/fontawesome-svg-core
- yarn add @fortawesome/free-solid-svg-icons
- yarn add @fortawesome/react-fontawesome
-```
-
-### aixos
-
-`yarn add axios`
-
-### bootstrap(grid)
-
-```
-yarn add bootstrap
-```
-
-### React-Chartjs-2
-
-`yarn add react-chartjs-2`
