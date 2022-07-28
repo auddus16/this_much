@@ -1,0 +1,67 @@
+@value makerShadow, makerWhite,makerBlue, makerGray, makerBlack from '../../common/colors.css';
+@value mediaQuery from '../../common/size.css';
+
+.container{
+    height: 100vh;
+    width: 150px;
+    background-color: makerBlue;
+    color:makerWhite;
+    border-radius: 0px 10px 10px 0px;
+    filter: drop-shadow(2px 0px 2px makerShadow);
+    z-index: 2;
+}
+
+.logo{
+    display: flex;
+    padding: 10px;
+}
+
+.list{
+    padding: 20px 10px;
+    color: makerWhite;
+    list-style:none;
+    
+}
+
+.nav_item{
+    color: makerBlack;
+}
+
+.list_item{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin: 8px 0px;
+    padding: 0px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    color: makerWhite;
+}
+.menu_list_item, 
+.menu_login_item{
+    list-style:none;
+    text-decoration: none;
+    color: makerWhite;
+}
+
+.list_item:hover,
+.active
+{
+    background-color: rgba(255, 255, 255, 10%);
+    border: 1px solid rgba(255, 255, 255, 50%);
+    
+}
+
+.login_btn{
+    color: makerWhite;
+    position: absolute;
+    padding: 10px;
+    bottom: 0px;
+    font-size: 0.7em;
+    cursor: pointer;
+}
+
+.login_btn:hover{
+    color:rgba(255, 255, 255, 0.7);
+}

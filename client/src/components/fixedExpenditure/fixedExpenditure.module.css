@@ -1,0 +1,29 @@
+@value makerShadow, makerWhite,makerBlue, makerLightGray, makerBlack from '../../common/colors.css';
+
+p, h3{
+    margin: 0px;
+}
+
+.container{
+    height: 100%;
+}
+
+.title{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.expenseContainer{
+    height: 100%;
+    max-height: 200px;
+    overflow:auto;
+}
+
+.expenseItem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 1px makerLightGray;
+    padding: 2px 12px;
+    margin: 4px 0;
+}

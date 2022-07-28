@@ -1,0 +1,53 @@
+@value makerShadow, makerWhite,makerLightGray2, makerBabyBlue, makerBlue, makerGray, makerBlack from '../../common/colors.css';
+
+.container{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+    background-color: makerWhite;
+    padding: 0px 25px;
+    border-bottom: 1px solid makerLightGray2;
+}
+.title{
+    font-size: 1.3em;
+    padding: 20px 0;
+}
+
+.categoryInput{
+    width: 75%;
+    height: 30px;
+}
+
+.categoryInputBtn{
+    width: 15%;
+    height: 30px;
+    margin: 0 5%;
+    background-color: makerBlue;
+    border-radius: 4px;    
+}
+
+.categoryContainer{
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    overflow-y: scroll;
+}
+
+.categoryBtn{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: makerBabyBlue;
+    width: 30%;
+    height: 40px;
+    border-radius: 20px;
+    margin: 1%;
+}
+
+.delete{
+    z-index: 99;
+}

@@ -1,0 +1,99 @@
+.day{
+    padding: 0px;
+    margin:0px;
+}
+
+.container, .date_nav, .nav_list, .right, .left, .nav_item{
+    display: flex;
+}
+
+.container{
+    width: 100%;
+    height: auto;
+}
+
+.left{
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 2;
+}
+
+.nav_list{
+    margin: 0px;
+}
+
+.date_nav{
+    font-size: 1.4em;
+    align-items: center;
+    height: 100%;
+    margin-left: 10px;
+    padding: 10px 15px;
+}
+.date_nav button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #558CCF;
+    font-size: 1.3em;
+}
+
+.date_nav p{
+    padding: 5px;
+}
+
+.nav_item{
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 2rem;
+    border-radius: 4px 4px 0px 0px;
+    transition: all 120ms ease-in-out;
+}
+.nav_item_underbar{
+    position: absolute;
+    bottom:0px;
+    width: 100%;
+    height: 2px;
+}
+
+.active_bar,
+.nav_item:hover .nav_item_underbar{
+    background-color: #558CCF;
+}
+
+.active{
+    background-color: white;
+}
+
+.nav_item:hover{
+    background-color: white;
+}
+
+.right{
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.moneyTable{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: white;
+    width: 90%;
+    min-width: 200px;
+    height:65%;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.expense{
+    color:#DF2A2A;
+    margin: 0px;
+}
+
+.purchase{
+    color: #558CCF;
+    margin:0px;
+}

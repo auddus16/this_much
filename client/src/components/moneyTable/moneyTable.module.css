@@ -1,0 +1,23 @@
+
+.moneyTable{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: white;
+    width: 90%;
+    min-width: 200px;
+    height:65%;
+    min-height: 50px;
+    padding: 5px 10px;
+    margin-right: 20px;
+}
+
+.expense{
+    color:#DF2A2A;
+    margin: 0px;
+}
+
+.purchase{
+    color: #558CCF;
+    margin:0px;
+}

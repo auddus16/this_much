@@ -1,0 +1,147 @@
+{
+    "Img": [
+        {
+            "image": "profile.jpg"
+        },
+        {
+            "image": "profile.jpg"
+          },
+          {
+            "image": "profile.jpg"
+          },
+          {
+            "image": "profile.jpg"
+          },
+          {
+            "image": "profile.jpg"
+          },
+          {
+            "image": "profile.jpg"
+          }
+    ],
+    "FixedExpenditure":[
+      {
+        "content": "유튜브",
+        "price": 10000
+      },
+      {
+        "content": "유튜브",
+        "price": 10000
+      },
+      {
+        "content": "유튜브",
+        "price": 10000
+      },
+      {
+        "content": "유튜브",
+        "price": 10000
+      },
+      {
+        "content": "유튜브",
+        "price": 10000
+      },
+      {
+        "content": "유튜브",
+        "price": 10000
+      },
+      {
+        "content": "유튜브",
+        "price": 10000
+      },
+      {
+        "content": "유튜브",
+        "price": 10000
+      },
+      {
+        "content": "유튜브",
+        "price": 10000
+      }
+    ],
+    "Category":[
+      {
+        "content": "유튜브",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "넷플릭스",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "카페",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "편의점",
+        "price": 10000,
+        "category": "비분류"
+      },
+      {
+        "content": "왓챠",
+        "price": 10000,
+        "category": "문화"
+      },
+      {
+        "content": "CGV",
+        "price": 10000,
+        "category": "문화"
+      },
+      {
+        "content": "뮤지컬",
+        "price": 10000,
+        "category": "문화"
+      },
+      {
+        "content": "월세",
+        "price": 10000,
+        "category": "주거"
+      },
+      {
+        "content": "관리비",
+        "price": 10000,
+        "category": "주거"
+      }
+    ]
+}

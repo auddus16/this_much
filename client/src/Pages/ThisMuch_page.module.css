@@ -1,0 +1,28 @@
+@value makerShadow, makerWhite, makerBlue, makerGray, makerBlack from '../common/colors.css';
+@value mediaQuery from '../common/size.css';
+
+.container{
+    flex:1;
+    height: 100vh;
+    overflow:scroll;
+}
+.item{
+    background-color: black;
+    height: 100vh;
+}
+
+.itemContainer{
+    /* overflow: auto; */
+    height: 300px;
+    width: auto;
+    background-color: makerWhite;
+    margin: 20px 10px;
+    padding: 20px;
+    border-top: solid 1px makerShadow;
+    border-bottom: solid 1px makerShadow;
+}
+@media screen and (max-width: mediaQuery){
+    .itemContainer{
+        margin: 10px 0;
+    }
+}

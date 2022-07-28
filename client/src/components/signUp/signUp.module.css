@@ -1,0 +1,110 @@
+@value makerLightGray2, makerShadow, makerWhite, makerLightGray, makerRed, makerBlue, makerBabyBlue from '../../common/colors.css';
+
+.container{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    min-height: 0;
+    background-color: makerLightGray;
+    overflow-y: scroll;
+}
+
+.signUpContainer{
+    flex: 1;
+    width: 60%;
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    background-color: makerWhite;
+    border-radius: 20px;
+    box-shadow: 0px 0px 6px 0px makerShadow;
+    margin: 40px auto;
+}
+
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid makerLightGray2;
+}
+
+.subTitle{
+    font-size:1.2em;
+    margin-top: 10px;
+}
+
+.input{
+    width: 70%;
+    padding: 2px 10px;
+    margin: 3px 5px 5px 0px;
+    border: 0;
+    border-bottom: 1.5px solid makerLightGray;
+    background-color: makerLightGray;
+}
+
+.passwordBox{
+    display: flex;
+    flex-direction: column;
+}
+
+.singUpSubmit{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 30px;
+    background:makerBlue;
+    color: makerWhite;
+    letter-spacing: 2px;
+}
+
+.btn{
+    font-size: 0.8em;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    margin: 0;
+    background-color: makerBabyBlue;
+    color: black;
+    font-weight: 500;
+    color: makerGray;
+}
+
+.token{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    border: 2.5px solid makerBabyBlue;
+    background-color: makerWhite;
+    color: black;
+    transition: all 160ms ease-in-out;
+}
+.tokenSucess{
+    color:white;
+    background-color: makerBabyBlue;
+}
+.token:hover{
+    background-color: makerBabyBlue;
+    color: white;
+}
+
+.submitBtnBox{
+    width: 100%;
+    text-align: end;
+}
+
+.invalidInput{
+    font-size: 0.7em;
+    color: makerRed;
+}

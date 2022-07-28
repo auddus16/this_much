@@ -1,0 +1,19 @@
+@value makerShadow, makerWhite, makerGray, makerGray, makerBlack, makerLightGray from '../../common/colors.css';
+
+
+table{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: 1px makerLightGray solid;
+}
+tr{
+    border: 1px makerGray solid;
+}
+th{
+    padding: 5px 0;
+}
+td{
+    padding: 10px 0;
+    border: 1px makerLightGray solid;
+}

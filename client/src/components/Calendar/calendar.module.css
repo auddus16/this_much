@@ -1,0 +1,71 @@
+.pageContainer{
+    flex:1;
+    height: 100vh;
+    overflow:scroll;
+}
+
+.contentContainer{
+    background-color: white;
+    height: auto;
+}
+
+.calendarContainer{
+    background-color: white;
+    height: auto;
+    padding: 20px 0;
+}
+
+.days{
+    display: flex;
+    justify-content: space-between;
+}
+
+.day{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14%;
+    height: 30px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.week{
+    display: flex;
+    border-bottom: 1px solid gainsboro;
+}
+
+.dates{
+    padding: 5px;
+    width: 14%;
+    height: 100px;
+}
+
+.date{
+    height: 20%;
+}
+
+.purchase, .expense{
+    width: 100%;
+    text-align: right;
+}
+
+.moneyTable{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80%;
+    margin-right: 4px;
+    font-size: 0.8rem;
+}
+
+.expense, .SundayColor{
+    color:#DF2A2A;
+}
+
+.purchase, .SaturdayColor{
+    color: #558CCF;
+}
+
+.GrayColor{
+    color: rgb(176, 176, 176);
+}

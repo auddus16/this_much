@@ -1,0 +1,22 @@
+@value makerShadow, makerWhite, makerBabyBlue, makerBlue, makerLightGray, makerBlack from './common/colors.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+* {
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 0px;
+  margin: 0px;
+}
+li{
+  color: black;
+  list-style: none;
+}
+a{
+  text-decoration-line: none;
+}
+
+.app{
+  background-color: makerLightGray;
+  display: flex;
+  overflow: hidden;
+}

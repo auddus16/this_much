@@ -1,0 +1,125 @@
+@value makerShadow, makerWhite,makerBlue, makerGray, makerBlack from '../../common/colors.css';
+
+  button {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* Section Setting ----------------------------------------------*/
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right:0;
+    left:0;
+    bottom: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 3;
+  }
+
+  .login__container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: makerWhite;
+    width: 60%;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 2px;
+    padding: 20px 0px;
+    overflow-y: hidden;
+  }
+  /*login --------------------------------------------------------------*/
+  .close{
+    color: makerShadow;
+    position: absolute;
+    font-size: 1.5em;
+    top:10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  #login {
+    width: 50%;
+    height: 500px;
+    background: makerWhite;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 350px;
+    margin-top: 7%;
+  }
+  
+  .login_logo {
+    color: makerBlue;
+  }
+  
+  .login__idpw {
+    margin-top: 20px;
+    width: 80%;
+  }
+  
+  .login__idpw h4 {
+    margin: 0;
+  }
+  
+  .login__idpw .input {
+    width: 100%;
+    height: 50px;
+    border-radius: 30px;
+    margin-top: 10px;
+    padding: 0px 20px;
+    border: 1px solid makerGray;
+  }
+  
+  .login__remember {
+    padding: 10px;
+    font-size: var(--font-micro);
+  }
+  
+  .login__submit {
+    margin-top: 30px;
+    width: 80%;
+  }
+  .login__submit button {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background:makerBlue;
+    color: makerWhite;
+    font-size: var(--font-regular);
+    letter-spacing: 5px;
+    font-weight: var(--weight-bold);
+  }
+  .option{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+  }
+
+  .membership{
+    font-size: 0.8em;
+  }
+  
+  /* For below 768px screen width */
+  @media screen and (max-width: 768px) {
+    :root {
+      --font-title: 1.75rem;
+      --font-medium: 1.5rem;
+    }
+  
+    .navbar__login {
+      transform: translate(50px, -5px);
+    }
+  }
