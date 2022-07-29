@@ -1,8 +1,6 @@
-# ThisMuch_Front
+# ThisMuch
 
-이만큼 웹 페이지
-
-가계부 웹 페이지
+금융결제원 오픈뱅킹API를 활용한 가계부 웹 서비스 개발 프로젝트
 
 ## 👩‍💻 개발자
 
@@ -13,11 +11,14 @@
 | 이연우 | Frontend |[Nunu-0](https://github.com/Nunu-0) |
 | 황명연 | Backend  |[auddus16](https://github.com/auddus16)|
 
-## 🗓️ 2022.05.10 ~ 2022.07.28
+## 🗓️ 2022.03.24 ~ 2022.07.28
 
 ## 📺▶
 
-## 💻 Front-End : React, PostCSS
+## 💻 Front-End  <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/> <img src="https://img.shields.io/badge/PostCSS-DD3A0A?style=flat&logo=react&logoColor=white"/>
+## 💻 Back-End  <img src="https://img.shields.io/badge/Spring%20boot-6DB33F?style=flat&logo=spring%20boot&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MYSQL&logoColor=white"/> <img src="https://img.shields.io/badge/Amazon%20AWS-232F3E?style=flat&logo=Amazon%20AWS&logoColor=white"/>
+
+![image](https://user-images.githubusercontent.com/59945024/181700058-f69a568c-2cb6-4a60-b054-eecc6f51b2fd.png)
 
 ---
 ## 프론트 구현
