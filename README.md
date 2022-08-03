@@ -1,4 +1,5 @@
 # ThisMuch
+![로고](https://user-images.githubusercontent.com/66766470/182526163-2b13d53d-e76b-4892-8753-fbef4c947b04.PNG)
 
 금융결제원 오픈뱅킹API를 활용한 가계부 웹 서비스 개발 프로젝트
 
@@ -14,6 +15,7 @@
 ## 🗓️ 2022.03.24 ~ 2022.07.28
 
 ## 📺▶
+https://youtu.be/w8-G9045ax4
 
 ## 💻 Front-End  <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/> <img src="https://img.shields.io/badge/PostCSS-DD3A0A?style=flat&logo=react&logoColor=white"/>
 ## 💻 Back-End  <img src="https://img.shields.io/badge/Spring%20boot-6DB33F?style=flat&logo=spring%20boot&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MYSQL&logoColor=white"/> <img src="https://img.shields.io/badge/Amazon%20AWS-232F3E?style=flat&logo=Amazon%20AWS&logoColor=white"/>
@@ -32,7 +34,7 @@
 4. 지출, 수입 테이블 생성
 5. 카테고리 설정 및 추가, 삭제, 필터링 기능
 6. 회원가입시 정규식을 이용하여 데이터 형식이 옳지 않으면 가입을 하지 못함
-7. Axios를 사용하여 백엔드와 APIs 연결 -> 회원가입, 로그인까지 완료
+7. Axios를 사용하여 백엔드와 APIs 연결
 
 ---
 
