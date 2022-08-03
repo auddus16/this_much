@@ -1,22 +1,17 @@
 # ThisMuch_Front
-이만큼 웹 페이지 
+![로고](https://user-images.githubusercontent.com/66766470/182526163-2b13d53d-e76b-4892-8753-fbef4c947b04.PNG)
 
-가계부 웹 페이지
+금융결제원 오픈뱅킹API를 활용한 가계부 웹 서비스 개발 프로젝트
 
 ## 👩‍💻 개발자
 |이름|역할|아이디|
 |---|---|---|
-|김준호|Backend||
-|노명욱|Backend||
 |이연우|Frontend|[Nunu-0](https://github.com/Nunu-0)|
-|황명연|Backend||
 
-## 🗓️ 2022.05.10 ~ ing
+## 🗓️ 2022.03.24 ~ 2022.07.28
 
-## 🔗 
-
-## 📺▶️
-https://youtu.be/R4byisxSi-4
+## 📺▶
+https://youtu.be/w8-G9045ax4
 
 ## 💻 React, PostCSS
 
@@ -29,7 +24,7 @@ https://youtu.be/R4byisxSi-4
 4. 지출, 수입 테이블 생성
 5. 카테고리 설정 및 추가, 삭제, 필터링 기능
 6. 회원가입시 정규식을 이용하여 데이터 형식이 옳지 않으면 가입을 하지 못함 
-7. Axios를 사용하여 백엔드와 APIs 연결 -> 회원가입, 로그인까지 완료
+7. Axios를 사용하여 백엔드와 APIs 연결
 
 ---
 ## 사용 모듈
